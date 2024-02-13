@@ -43,13 +43,13 @@ public class CharacterMovement : MonoBehaviour
         // Update the character's velocity to approach the target
         velocity = Vector2.Lerp(velocity, targetVelocity, Time.deltaTime * accelerationSpeed);
         // Camera velocity is updated by a fraction of the character's acceleration speed so it lags behind
-        cameraVelocity = Vector2.Lerp(cameraVelocity, targetVelocity, Time.deltaTime * cameraAcceleration * accelerationSpeed);
+        cameraVelocity = Vector2.Lerp(cam.transform.position, transform.position, Time.deltaTime * cameraAcceleration * accelerationSpeed);
         // Camera doesn't move up or down
         cameraVelocity.y = 0;
 
         // Move the character and camera
         transform.Translate(velocity * Time.deltaTime);
-        cam.transform.Translate(cameraVelocity * Time.deltaTime);
+        cam.transform.position = new Vector3(cameraVelocity.x, cam.transform.position.y, cam.transform.position.z);
     }
 
     void Move(InputAction.CallbackContext inputCtx)
