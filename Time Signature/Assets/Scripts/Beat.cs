@@ -14,8 +14,9 @@ public class Beat
     {
         if(!IsDone())
         {
-            float offset = times[beatIndex++] - time;
-            return Mathf.Max(0, 1 - (offset * offset));
+            float score = Mathf.Max(0, 1 - Mathf.Abs(times[beatIndex] - time));
+            beatIndex++;
+            return score * score;
         }
 
         return float.NaN;

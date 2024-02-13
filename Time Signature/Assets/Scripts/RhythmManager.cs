@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(AudioSource))]
 public class RhythmManager : MonoBehaviour
 {
     //list of beats for testing
@@ -35,8 +36,12 @@ public class RhythmManager : MonoBehaviour
     private Vector2 playerOffset;
 
     //visible in inspector for testing
-    [SerializeField]
     private float score;
+
+    [SerializeField]
+    TMP_Text scoreBox;
+    [SerializeField]
+    TMP_Text timeBox;
 
     //list of spawned objects to destroy before starting next beat
     [SerializeField]
@@ -44,6 +49,10 @@ public class RhythmManager : MonoBehaviour
 
     //for when the test beats are out
     private bool finished;
+
+    private AudioSource audioController;
+    [SerializeField]
+    private AudioClip beatSound;
 
 
     InputManager inputManager;
@@ -54,11 +63,14 @@ public class RhythmManager : MonoBehaviour
         inputManager.Enable();
         inputManager.Character.PlayNote.performed += ctx => PlayNote(ctx);
         startDisplaying = true;
+        audioController = GetComponent<AudioSource>();
+        audioController.clip = beatSound;
     }
 
     // Update is called once per frame
     void Update()
     {
+        timeBox.text = timer.ToString();
         //if our of beats, stop
         if(finished)
         {
@@ -107,6 +119,7 @@ public class RhythmManager : MonoBehaviour
             //spawn an indicator at the next position and add it to the list
             Vector2 position = exampleStartPos + exampleOffset * i;
             indicators.Add(Instantiate(indicator, position, Quaternion.identity));
+            audioController.Play();
         }
         //set variables for keeping track of inputs
         finishedDisplaying = true;
@@ -121,13 +134,15 @@ public class RhythmManager : MonoBehaviour
         {
             return;
         }
-        //indicate time should start counting and reset it
-        justStarted = false;
-        timer = 0;
         //spawn an indicator at the next postion and add it to the lisr
         Vector2 position = playerStartPos + playerOffset * beats[beatIndex].beatIndex;
         indicators.Add(Instantiate(indicator, position, Quaternion.identity));
         //increase the score based on the time since the last input
         score += beats[beatIndex].GetScore(timer);
+        scoreBox.text = score.ToString();
+        audioController.Play();
+        //indicate time should start counting and reset it
+        justStarted = false;
+        timer = 0;
     }
 }
