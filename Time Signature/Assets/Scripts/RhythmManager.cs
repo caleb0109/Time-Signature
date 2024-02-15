@@ -1,25 +1,23 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+
+public delegate void BeatFinishedCallback(float score);
 
 [RequireComponent(typeof(AudioSource))]
 public class RhythmManager : MonoBehaviour
 {
-    //list of beats for testing
-    [SerializeField]
-    private List<Beat> beats;
+
+    private Beat currentBeat;
 
     //keep track of display progress
-    private bool startDisplaying;
     private bool finishedDisplaying;
     //keep track of first note of a beat
     private bool justStarted;
-    //time since last note played
-    private float timer;
-    //keep track of progress in beat and which beat to play next
-    private int beatIndex;
 
     //object to display for beats
     [SerializeField]
@@ -47,12 +45,12 @@ public class RhythmManager : MonoBehaviour
     [SerializeField]
     private List<GameObject> indicators;
 
-    //for when the test beats are out
-    private bool finished;
-
     private AudioSource audioController;
     [SerializeField]
-    private AudioClip beatSound;
+    private AudioClip[] beatSounds;
+
+    private DateTime prevInputTime;
+    private BeatFinishedCallback callback;
 
 
     InputManager inputManager;
@@ -60,58 +58,42 @@ public class RhythmManager : MonoBehaviour
     {
         //enable input and set startDisplaying to start
         inputManager = new InputManager();
-        inputManager.Enable();
         inputManager.Character.PlayNote.performed += ctx => PlayNote(ctx);
-        startDisplaying = true;
         audioController = GetComponent<AudioSource>();
-        audioController.clip = beatSound;
     }
 
-    // Update is called once per frame
-    void Update()
+
+    public void SetBeat(Beat beat)
     {
-        timeBox.text = timer.ToString();
-        //if our of beats, stop
-        if(finished)
+        currentBeat = beat;
+    }
+
+    public void ShowExample()
+    {
+        if(currentBeat == null)
         {
-            return;
+            Debug.LogError("Tried to begin, but no beat is set");
         }
-        if(startDisplaying)
+        StartCoroutine(DisplayBeat());
+    }
+
+
+    public void BeginInput(BeatFinishedCallback beatFinishedCallback)
+    {
+        if(currentBeat == null)
         {
-            //begins example beat
-            StartCoroutine(DisplayBeat());
-            startDisplaying = false;
+            Debug.LogError("Tried to begin, but no beat is set");
         }
-        else if(finishedDisplaying)
-        {
-            //time is only counted after the first beat
-            //this allows the player to start whenever they are ready
-            if(!justStarted)
-            {
-                timer += Time.deltaTime;
-            }
-            if(beats[beatIndex].IsDone())
-            {
-                //move on to the next beat, reset the timer, and set flags for display
-                beatIndex++;
-                finished = beatIndex >= beats.Count;
-                timer = 0;
-                finishedDisplaying = false;
-                startDisplaying = true;
-                //delete all spawned indicators
-                for(int i = 0; i < indicators.Count; i++)
-                {
-                    Destroy(indicators[i]);
-                }
-                indicators.Clear();
-            }
-        }
+        score = 0;
+        justStarted = true;
+        inputManager.Enable();
+        callback = beatFinishedCallback;
     }
 
     IEnumerator DisplayBeat()
     {
         //get timing list for convenience
-        List<float> beatTimes = beats[beatIndex].times;
+        List<float> beatTimes = currentBeat.times;
         for(int i = 0; i < beatTimes.Count; i++)
         {
             //wait for the next beat
@@ -119,6 +101,8 @@ public class RhythmManager : MonoBehaviour
             //spawn an indicator at the next position and add it to the list
             Vector2 position = exampleStartPos + exampleOffset * i;
             indicators.Add(Instantiate(indicator, position, Quaternion.identity));
+            int index = UnityEngine.Random.Range(0, beatSounds.Length);
+            audioController.clip = beatSounds[index];
             audioController.Play();
         }
         //set variables for keeping track of inputs
@@ -130,19 +114,46 @@ public class RhythmManager : MonoBehaviour
     void PlayNote(InputAction.CallbackContext ctx)
     {
         //if out of notes or the example is running, return
-        if(finished || !finishedDisplaying)
+        if(!finishedDisplaying)
         {
             return;
         }
+        DateTime current = DateTime.Now;
+        float timeElapsed = justStarted ? 0 : (float)(current - prevInputTime).TotalMilliseconds/1000.0f;
+        prevInputTime = current;
         //spawn an indicator at the next postion and add it to the lisr
-        Vector2 position = playerStartPos + playerOffset * beats[beatIndex].beatIndex;
+        Vector2 position = playerStartPos + playerOffset * currentBeat.beatIndex;
         indicators.Add(Instantiate(indicator, position, Quaternion.identity));
         //increase the score based on the time since the last input
-        score += beats[beatIndex].GetScore(timer);
-        scoreBox.text = score.ToString();
-        audioController.Play();
-        //indicate time should start counting and reset it
+        score += currentBeat.GetScore(timeElapsed);
+
+        if(scoreBox != null)
+        {
+            scoreBox.text = score.ToString();
+        }
+
+        if(timeBox != null)
+        {
+            timeBox.text = timeElapsed.ToString();
+        }
+
+        int index = UnityEngine.Random.Range(0, beatSounds.Length);
+        audioController.clip = beatSounds[index];
+        //indicate time should start counting
         justStarted = false;
-        timer = 0;
+        if(currentBeat.IsDone())
+        {
+            //delete all spawned indicators
+            for(int i = 0; i < indicators.Count; i++)
+            {
+                Destroy(indicators[i]);
+            }
+            indicators.Clear();
+            inputManager.Disable();
+            if(callback != null)
+            {
+                callback(score);
+            }
+        }
     }
 }

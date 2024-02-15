@@ -27,4 +27,9 @@ public class Beat
         return beatIndex >= times.Count;
     }
 
+    public void Reset()
+    {
+        beatIndex = 0;
+    }
+
 }
