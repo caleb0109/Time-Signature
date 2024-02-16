@@ -36,6 +36,7 @@ public class MainMenu : MonoBehaviour
     //A function that, when triggered, will change the scene.
     public void GoToScene(string sceneName)
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene(sceneName);
     }
 
@@ -62,5 +63,13 @@ public class MainMenu : MonoBehaviour
 
             enabledPanel.SetActive(true);
         }
+    }
+
+    public void UnPause(GameObject objectName)
+    {
+        Time.timeScale = 1;
+        
+        Debug.Log(Time.timeScale.ToString());
+        objectName.SetActive(false);
     }
 }
