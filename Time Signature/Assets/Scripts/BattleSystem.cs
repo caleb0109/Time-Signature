@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST }
@@ -13,6 +14,8 @@ public class BattleSystem : MonoBehaviour
 
     public GameObject AttackButton;
 
+    public GameObject healthBar;
+
     public Transform playerSpot;
     public Transform enemySpot;
 
@@ -22,6 +25,7 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] TMP_Text enemyName;
     [SerializeField] TMP_Text dmgToEnemy;
     [SerializeField] TMP_Text dmgToPlayer;
+    [SerializeField] TMP_Text currentMaxHp;
 
     private Unit playerUnit;
     private Unit enemyUnit;
@@ -59,6 +63,8 @@ public class BattleSystem : MonoBehaviour
 
         dmgToEnemy.gameObject.SetActive(false);
         dmgToPlayer.gameObject.SetActive(false);
+
+        UpdateHealthBar(playerUnit.currentHP);
 
         yield return new WaitForSeconds(1f);
 
@@ -134,6 +140,7 @@ public class BattleSystem : MonoBehaviour
 
         //do the damage
         bool isDead = playerUnit.TakeDamage(enemyUnit.damage);
+        UpdateHealthBar(playerUnit.currentHP);
         Debug.Log(playerUnit.currentHP);
 
         yield return new WaitForSeconds(1f);
@@ -173,5 +180,24 @@ public class BattleSystem : MonoBehaviour
         StartCoroutine(PlayerAttack());
     }
 
+    //A function that updates the UI displaying the player's HP.
+    private void UpdateHealthBar(int currentHP)
+    {
+        float healthRatio;
 
+        //If the player has less then 0 health, their HP will be considered as 0.
+        if (currentHP <= 0)
+        {
+            currentHP = 0;
+        }
+
+        /*Finds the ratio between the player's current HP and max HP before determining the offset
+        for their health bar.*/
+        healthRatio = currentHP / float.Parse(playerUnit.maxHP.ToString());
+        float widthChange = 107 - 107 * healthRatio;
+
+        //Updates the text display and applies the offset to the health bar.
+        currentMaxHp.text = currentHP + "/" + playerUnit.maxHP;
+        healthBar.GetComponent<RectTransform>().offsetMax = new Vector2(widthChange * -1, healthBar.GetComponent<RectTransform>().offsetMax.y);
+    }
 }
