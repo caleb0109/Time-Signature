@@ -90,6 +90,17 @@
                     "action": "PlayNote",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "29c22464-0677-4c9b-bd1b-8874de79d4c9",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PlayNote",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

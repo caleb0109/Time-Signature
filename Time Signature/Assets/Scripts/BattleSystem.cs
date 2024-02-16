@@ -11,13 +11,17 @@ public class BattleSystem : MonoBehaviour
     public GameObject playerPrefab;
     public GameObject enemyPrefab;
 
+    public GameObject AttackButton;
+
     public Transform playerSpot;
     public Transform enemySpot;
 
     public BattleState state;
 
-    public TMP_Text playerName;
-    public TMP_Text enemyName;
+    [SerializeField] TMP_Text playerName;
+    [SerializeField] TMP_Text enemyName;
+    [SerializeField] TMP_Text dmgToEnemy;
+    [SerializeField] TMP_Text dmgToPlayer;
 
     private Unit playerUnit;
     private Unit enemyUnit;
@@ -25,9 +29,12 @@ public class BattleSystem : MonoBehaviour
     private Animator enemyAnimator;
     private Animator playerAnimator;
 
+    private RhythmManager rhythmMan;
+
     // Start is called before the first frame update
     void Start()
     {
+        rhythmMan = this.GetComponent<RhythmManager>();
         state = BattleState.START;
         StartCoroutine(SetUp());
 
@@ -50,6 +57,9 @@ public class BattleSystem : MonoBehaviour
         playerAnimator = playerGO.GetComponent<Animator>();
         enemyAnimator = enemyGO.GetComponent<Animator>();
 
+        dmgToEnemy.gameObject.SetActive(false);
+        dmgToPlayer.gameObject.SetActive(false);
+
         yield return new WaitForSeconds(1f);
 
         
@@ -60,27 +70,49 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator PlayerAttack()
     {
+        rhythmMan.ShowExample();
+        rhythmMan.BeginInput(null);
 
+        //Waits for the rhythm game to be done before continuing
+        while (!rhythmMan.isDone)
+            yield return null;
+
+
+        //formula for getting the damage done based on the rhythm
+        float dmgTaken = Mathf.Round((playerUnit.damage * rhythmMan.score)/5);
+
+        rhythmMan.isDone = false;
         playerAnimator.SetTrigger("Attack");
-
         yield return new WaitForSeconds(1f);
-        //do the damage
-        bool isDead = enemyUnit.TakeDamage(playerUnit.damage);
-        Debug.Log(enemyUnit.currentHP);
+        dmgToEnemy.text = dmgTaken.ToString();
+        dmgToEnemy.gameObject.SetActive(true);
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(0.5f);
+        dmgToEnemy.gameObject.SetActive(false);
+        //do the damage
+        
+        Debug.Log(dmgTaken);
+        bool isDead = enemyUnit.TakeDamage((int)dmgTaken);
+        Debug.Log(enemyUnit.currentHP);
+        
+        yield return new WaitForSeconds(1f);
+        
+        //yield return new WaitForSeconds(1f);
+        //rhythmMan.score = 0;
 
         //Check if enemy is dead
         if(isDead)
         {
             //Change state to won if they are dead
             state = BattleState.WON;
+            AttackButton.SetActive(false);
             EndBattle();
         }
         else
         {
             //change state to enemy turn if they are not dead
             state = BattleState.ENEMYTURN;
+            AttackButton.SetActive(false);
             StartCoroutine(EnemyTurn());
         }
         
@@ -94,6 +126,12 @@ public class BattleSystem : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
+        dmgToPlayer.text = enemyUnit.damage.ToString();
+        dmgToPlayer.gameObject.SetActive(true);
+
+        yield return new WaitForSeconds(0.5f);
+        dmgToPlayer.gameObject.SetActive(false);
+
         //do the damage
         bool isDead = playerUnit.TakeDamage(enemyUnit.damage);
         Debug.Log(playerUnit.currentHP);
@@ -103,6 +141,7 @@ public class BattleSystem : MonoBehaviour
         if(isDead)
         {
             state = BattleState.LOST;
+            AttackButton.SetActive(false);
             EndBattle();
         }
         else
@@ -122,6 +161,7 @@ public class BattleSystem : MonoBehaviour
     void PlayerTurn()
     {
         Debug.Log("Player turn!");
+        AttackButton.SetActive(true);
     }
 
     public void OnAttackButton()
@@ -129,7 +169,7 @@ public class BattleSystem : MonoBehaviour
         if (state != BattleState.PLAYERTURN){
             return;
         }
-
+        AttackButton.SetActive(false);
         StartCoroutine(PlayerAttack());
     }
 

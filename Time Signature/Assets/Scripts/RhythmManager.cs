@@ -11,7 +11,7 @@ public delegate void BeatFinishedCallback(float score);
 [RequireComponent(typeof(AudioSource))]
 public class RhythmManager : MonoBehaviour
 {
-
+    [SerializeField]
     private Beat currentBeat;
 
     //keep track of display progress
@@ -34,7 +34,7 @@ public class RhythmManager : MonoBehaviour
     private Vector2 playerOffset;
 
     //visible in inspector for testing
-    private float score;
+    public float score;
 
     [SerializeField]
     TMP_Text scoreBox;
@@ -52,6 +52,8 @@ public class RhythmManager : MonoBehaviour
     private DateTime prevInputTime;
     private BeatFinishedCallback callback;
 
+    public bool isDone;
+
 
     InputManager inputManager;
     void Start()
@@ -60,6 +62,9 @@ public class RhythmManager : MonoBehaviour
         inputManager = new InputManager();
         inputManager.Character.PlayNote.performed += ctx => PlayNote(ctx);
         audioController = GetComponent<AudioSource>();
+
+        //set isDone to true so we can actually do rhythm
+        isDone = true;
     }
 
 
@@ -70,6 +75,7 @@ public class RhythmManager : MonoBehaviour
 
     public void ShowExample()
     {
+        isDone = false;
         if(currentBeat == null)
         {
             Debug.LogError("Tried to begin, but no beat is set");
@@ -139,6 +145,7 @@ public class RhythmManager : MonoBehaviour
 
         int index = UnityEngine.Random.Range(0, beatSounds.Length);
         audioController.clip = beatSounds[index];
+        audioController.Play();
         //indicate time should start counting
         justStarted = false;
         if(currentBeat.IsDone())
@@ -150,10 +157,12 @@ public class RhythmManager : MonoBehaviour
             }
             indicators.Clear();
             inputManager.Disable();
+            isDone = true;
             if(callback != null)
             {
                 callback(score);
             }
+            currentBeat.Reset();
         }
     }
 }
