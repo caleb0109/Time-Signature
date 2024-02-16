@@ -9,6 +9,7 @@ public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST }
 public class BattleSystem : MonoBehaviour
 {
 
+
     public GameObject playerPrefab;
     public GameObject enemyPrefab;
 
@@ -38,6 +39,7 @@ public class BattleSystem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         rhythmMan = this.GetComponent<RhythmManager>();
         state = BattleState.START;
         StartCoroutine(SetUp());
@@ -66,7 +68,7 @@ public class BattleSystem : MonoBehaviour
 
         UpdateHealthBar(playerUnit.currentHP);
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.25f);
 
         
 
@@ -111,6 +113,7 @@ public class BattleSystem : MonoBehaviour
         {
             //Change state to won if they are dead
             state = BattleState.WON;
+            enemyUnit.gameObject.SetActive(false);
             AttackButton.SetActive(false);
             EndBattle();
         }
@@ -148,6 +151,7 @@ public class BattleSystem : MonoBehaviour
         if(isDead)
         {
             state = BattleState.LOST;
+            playerUnit.gameObject.SetActive(false);
             AttackButton.SetActive(false);
             EndBattle();
         }
