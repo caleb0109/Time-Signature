@@ -36,26 +36,28 @@ public class RhythmManager : MonoBehaviour
     //visible in inspector for testing
     public float score;
 
-    [SerializeField]
-    TMP_Text scoreBox;
-    [SerializeField]
-    TMP_Text timeBox;
-
     //list of spawned objects to destroy before starting next beat
     [SerializeField]
     private List<GameObject> indicators;
 
+    //objects for playing sounds and the sounds to play
     private AudioSource audioController;
     [SerializeField]
     private AudioClip[] beatSounds;
+    //list of beats used by the example
+    private List<int> chosenBeatSounds;
 
+    //keep track of time since last input, since update isn't used
     private DateTime prevInputTime;
+
+    //function to call once the player is finished
     private BeatFinishedCallback callback;
 
+    //combat system uses this to check progress
     public bool isDone;
 
-
     InputManager inputManager;
+
     void Start()
     {
         //enable input and set startDisplaying to start
@@ -75,23 +77,32 @@ public class RhythmManager : MonoBehaviour
 
     public void ShowExample()
     {
+        //set so combat script can keep track of progress
         isDone = false;
+        //make sure a beat is set
         if(currentBeat == null)
         {
-            Debug.LogError("Tried to begin, but no beat is set");
+            Debug.LogError("Tried to begin example, but no beat is set");
+            return;
         }
+        //begin displaying the example
         StartCoroutine(DisplayBeat());
     }
 
 
     public void BeginInput(BeatFinishedCallback beatFinishedCallback)
     {
+        //make sure a beat is set
         if(currentBeat == null)
         {
-            Debug.LogError("Tried to begin, but no beat is set");
+            Debug.LogError("Tried to begin input, but no beat is set");
+            return;
         }
+        //reset score
         score = 0;
+        //set justStarted so player chooses when to start
         justStarted = true;
+        //enable player input and set the function to be called once the player finishes the beat
         inputManager.Enable();
         callback = beatFinishedCallback;
     }
@@ -107,9 +118,12 @@ public class RhythmManager : MonoBehaviour
             //spawn an indicator at the next position and add it to the list
             Vector2 position = exampleStartPos + exampleOffset * i;
             indicators.Add(Instantiate(indicator, position, Quaternion.identity));
+
+            //pick a clap sound to play, and store it for the player inputs
             int index = UnityEngine.Random.Range(0, beatSounds.Length);
             audioController.clip = beatSounds[index];
             audioController.Play();
+            chosenBeatSounds.Add(index);
         }
         //set variables for keeping track of inputs
         finishedDisplaying = true;
@@ -119,35 +133,30 @@ public class RhythmManager : MonoBehaviour
 
     void PlayNote(InputAction.CallbackContext ctx)
     {
-        //if out of notes or the example is running, return
+        //if example is running, return
         if(!finishedDisplaying)
         {
             return;
         }
+        //calculate the time since the last input and update the time to the last input
         DateTime current = DateTime.Now;
         float timeElapsed = justStarted ? 0 : (float)(current - prevInputTime).TotalMilliseconds/1000.0f;
         prevInputTime = current;
-        //spawn an indicator at the next postion and add it to the lisr
+
+        //spawn an indicator at the next postion and add it to the list
         Vector2 position = playerStartPos + playerOffset * currentBeat.beatIndex;
         indicators.Add(Instantiate(indicator, position, Quaternion.identity));
         //increase the score based on the time since the last input
         score += currentBeat.GetScore(timeElapsed);
 
-        if(scoreBox != null)
-        {
-            scoreBox.text = score.ToString();
-        }
-
-        if(timeBox != null)
-        {
-            timeBox.text = timeElapsed.ToString();
-        }
-
-        int index = UnityEngine.Random.Range(0, beatSounds.Length);
-        audioController.clip = beatSounds[index];
+        //Play the same sound that was used for the example
+        audioController.clip = beatSounds[chosenBeatSounds[currentBeat.beatIndex]];
         audioController.Play();
+
         //indicate time should start counting
         justStarted = false;
+
+        //if the player has performed enough inputs for each beat
         if(currentBeat.IsDone())
         {
             //delete all spawned indicators
@@ -156,13 +165,21 @@ public class RhythmManager : MonoBehaviour
                 Destroy(indicators[i]);
             }
             indicators.Clear();
+            //disable input
             inputManager.Disable();
             isDone = true;
+
+            //if a callback was passed in, call it
+            //and pass it the score
             if(callback != null)
             {
                 callback(score);
             }
+
+            //reset the beat so it can be played again
             currentBeat.Reset();
+            //reset the sounds so new ones can be chosen next time
+            chosenBeatSounds.Clear();
         }
     }
 }
