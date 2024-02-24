@@ -45,6 +45,7 @@ public class RhythmManager : MonoBehaviour
     [SerializeField]
     private AudioClip[] beatSounds;
     //list of beats used by the example
+    [SerializeField]
     private List<int> chosenBeatSounds;
 
     //keep track of time since last input, since update isn't used
@@ -64,6 +65,7 @@ public class RhythmManager : MonoBehaviour
         inputManager = new InputManager();
         inputManager.Character.PlayNote.performed += ctx => PlayNote(ctx);
         audioController = GetComponent<AudioSource>();
+        chosenBeatSounds = new List<int>();
 
         //set isDone to true so we can actually do rhythm
         isDone = true;
@@ -146,12 +148,12 @@ public class RhythmManager : MonoBehaviour
         //spawn an indicator at the next postion and add it to the list
         Vector2 position = playerStartPos + playerOffset * currentBeat.beatIndex;
         indicators.Add(Instantiate(indicator, position, Quaternion.identity));
-        //increase the score based on the time since the last input
-        score += currentBeat.GetScore(timeElapsed);
-
         //Play the same sound that was used for the example
         audioController.clip = beatSounds[chosenBeatSounds[currentBeat.beatIndex]];
         audioController.Play();
+        //increase the score based on the time since the last input
+        score += currentBeat.GetScore(timeElapsed);
+
 
         //indicate time should start counting
         justStarted = false;
