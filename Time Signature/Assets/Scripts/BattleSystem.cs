@@ -36,17 +36,21 @@ public class BattleSystem : MonoBehaviour
 
     private RhythmManager rhythmMan;
 
+    [SerializeField] private GameObject beatButton;
+    [SerializeField] private GameObject beatSelector;
+    private RectTransform beatSelectorContent;
+
+    private BeatManager beatManager;
+
     // Start is called before the first frame update
     void Start()
     {
-
+        beatManager = FindAnyObjectByType<BeatManager>();
         rhythmMan = this.GetComponent<RhythmManager>();
         state = BattleState.START;
+        beatSelectorContent = beatSelector.GetComponent<ScrollRect>().content;
         StartCoroutine(SetUp());
-
-        
     }
-
 
     IEnumerator SetUp()
     {
@@ -68,28 +72,58 @@ public class BattleSystem : MonoBehaviour
 
         UpdateHealthBar(playerUnit.currentHP);
 
+        GenerateBeatSelector();
+
+        beatSelector.SetActive(false);
+
         yield return new WaitForSeconds(0.25f);
 
-        
+
 
         state = BattleState.PLAYERTURN;
         PlayerTurn();
     }
 
-    IEnumerator PlayerAttack()
+    void GenerateBeatSelector()
     {
-        rhythmMan.ShowExample();
-        rhythmMan.BeginInput(null);
+        string[] attacks = beatManager.GetAllAttackNames();
+        int attackCount = attacks.Length;
+        float viewportHeight = -beatSelectorContent.offsetMin.y;
 
-        //Waits for the rhythm game to be done before continuing
-        while (!rhythmMan.isDone)
-            yield return null;
+        RectTransform buttonPrefabTransform = beatButton.GetComponent<RectTransform>();
+        float buttonHeight = buttonPrefabTransform.sizeDelta.y;
+        float nextButtonPos = viewportHeight/2.0f - buttonHeight/2.0f - 5.0f;
+        for(int i = 0; i < attackCount; i++)
+        {
+            GameObject buttonObj = Instantiate(beatButton, beatSelectorContent);
+            Button buttonButton = buttonObj.GetComponent<Button>();
+            TMP_Text buttonText = buttonObj.GetComponentInChildren<TMP_Text>();
+            RectTransform buttonRect = buttonObj.GetComponent<RectTransform>();
 
+            buttonRect.anchoredPosition = new Vector2(0, nextButtonPos);
+            int param = i;
+            buttonButton.onClick.AddListener(() => {PickAttack(param);});
+            buttonText.text = beatManager.GetAttack(i).name;
 
+            nextButtonPos -= buttonHeight + 5.0f;
+        }
+    }
+
+    private void PlayerAttack()
+    {
+        beatSelector.SetActive(true);
+    }
+
+    public void PlayerRhythmFinished(float score)
+    {
+        StartCoroutine(AnimatePlayerAttack(score));
+    }
+
+    private IEnumerator AnimatePlayerAttack(float score)
+    {
         //formula for getting the damage done based on the rhythm
-        float dmgTaken = Mathf.Round((playerUnit.damage * rhythmMan.score)/5);
+        float dmgTaken = Mathf.Round((playerUnit.damage * score)/5);
 
-        rhythmMan.isDone = false;
         playerAnimator.SetTrigger("Attack");
         yield return new WaitForSeconds(1f);
         dmgToEnemy.text = dmgTaken.ToString();
@@ -98,13 +132,13 @@ public class BattleSystem : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         dmgToEnemy.gameObject.SetActive(false);
         //do the damage
-        
+
         Debug.Log(dmgTaken);
         bool isDead = enemyUnit.TakeDamage((int)dmgTaken);
         Debug.Log(enemyUnit.currentHP);
-        
+
         yield return new WaitForSeconds(1f);
-        
+
         //yield return new WaitForSeconds(1f);
         //rhythmMan.score = 0;
 
@@ -124,7 +158,14 @@ public class BattleSystem : MonoBehaviour
             AttackButton.SetActive(false);
             StartCoroutine(EnemyTurn());
         }
-        
+    }
+
+    public void PickAttack(int beatIndex)
+    {
+        beatSelector.SetActive(false);
+        rhythmMan.SetBeat(beatManager.GetAttack(beatIndex).beat);
+        rhythmMan.ShowExample();
+        rhythmMan.BeginInput(PlayerRhythmFinished);
     }
 
     IEnumerator EnemyTurn()
@@ -167,7 +208,7 @@ public class BattleSystem : MonoBehaviour
         //we can use this later for winning and losing battles
         Debug.Log("Battle over!");
     }
-    
+
 
     void PlayerTurn()
     {
@@ -181,7 +222,7 @@ public class BattleSystem : MonoBehaviour
             return;
         }
         AttackButton.SetActive(false);
-        StartCoroutine(PlayerAttack());
+        PlayerAttack();
     }
 
     //A function that updates the UI displaying the player's HP.
