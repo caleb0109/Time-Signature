@@ -1,0 +1,27 @@
+﻿title: Start
+---
+Guard: Wow!
+Guard: It's the music guy!
+Guard: Say, how does it feel being the only knight who dances?
+
+-> It's lonely.
+-> It's cool!
+-> I don't really care.
+
+Guard: Okay!
+Guard: Well, bye!
+===
+title: GuardTwo
+---
+Guard: Being a guard is weird sometimes.
+Guard: I mean, they have us standing in this empty field, and for what?
+Guard: Honestly, the trees don't even look real.
+Guard: And have you ever noticed that the mountains and stuff just, cut off?
+Guard: This feels like an alpha test.
+===
+title: Wolf
+---
+Wolf: I am a wolf.
+...
+Wolf: I don't know what you expected from this interaction.
+===

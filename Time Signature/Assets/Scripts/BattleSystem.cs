@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST }
 
@@ -207,6 +208,7 @@ public class BattleSystem : MonoBehaviour
     {
         //we can use this later for winning and losing battles
         Debug.Log("Battle over!");
+        SceneManager.LoadScene("TestLevel");
     }
 
 

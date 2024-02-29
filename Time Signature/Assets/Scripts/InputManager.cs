@@ -44,6 +44,15 @@ public partial class @InputManager: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""df5564dc-73b0-4917-8a4d-3ec038c96929"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -123,6 +132,17 @@ public partial class @InputManager: IInputActionCollection2, IDisposable
                     ""action"": ""PlayNote"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""12f4eacd-7d31-492e-9b5a-f7cbd53ac333"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -133,6 +153,7 @@ public partial class @InputManager: IInputActionCollection2, IDisposable
         m_Character = asset.FindActionMap("Character", throwIfNotFound: true);
         m_Character_Move = m_Character.FindAction("Move", throwIfNotFound: true);
         m_Character_PlayNote = m_Character.FindAction("PlayNote", throwIfNotFound: true);
+        m_Character_Interact = m_Character.FindAction("Interact", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -196,12 +217,14 @@ public partial class @InputManager: IInputActionCollection2, IDisposable
     private List<ICharacterActions> m_CharacterActionsCallbackInterfaces = new List<ICharacterActions>();
     private readonly InputAction m_Character_Move;
     private readonly InputAction m_Character_PlayNote;
+    private readonly InputAction m_Character_Interact;
     public struct CharacterActions
     {
         private @InputManager m_Wrapper;
         public CharacterActions(@InputManager wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Character_Move;
         public InputAction @PlayNote => m_Wrapper.m_Character_PlayNote;
+        public InputAction @Interact => m_Wrapper.m_Character_Interact;
         public InputActionMap Get() { return m_Wrapper.m_Character; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -217,6 +240,9 @@ public partial class @InputManager: IInputActionCollection2, IDisposable
             @PlayNote.started += instance.OnPlayNote;
             @PlayNote.performed += instance.OnPlayNote;
             @PlayNote.canceled += instance.OnPlayNote;
+            @Interact.started += instance.OnInteract;
+            @Interact.performed += instance.OnInteract;
+            @Interact.canceled += instance.OnInteract;
         }
 
         private void UnregisterCallbacks(ICharacterActions instance)
@@ -227,6 +253,9 @@ public partial class @InputManager: IInputActionCollection2, IDisposable
             @PlayNote.started -= instance.OnPlayNote;
             @PlayNote.performed -= instance.OnPlayNote;
             @PlayNote.canceled -= instance.OnPlayNote;
+            @Interact.started -= instance.OnInteract;
+            @Interact.performed -= instance.OnInteract;
+            @Interact.canceled -= instance.OnInteract;
         }
 
         public void RemoveCallbacks(ICharacterActions instance)
@@ -248,5 +277,6 @@ public partial class @InputManager: IInputActionCollection2, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnPlayNote(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
     }
 }
