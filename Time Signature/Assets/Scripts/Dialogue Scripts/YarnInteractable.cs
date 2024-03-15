@@ -33,11 +33,14 @@ public class YarnInteractable : MonoBehaviour {
     public void Interact(InputAction.CallbackContext inputCtx) {
         if (interactable && !dialogueRunner.IsDialogueRunning && this.transform.position.x - player.transform.position.x > -1 && this.transform.position.x - player.transform.position.x < 1 && this.transform.position.y - player.transform.position.y > -1 && this.transform.position.y - player.transform.position.y < 1) {
             StartConversation();
+            inputManager.Disable();
         }
     }
 
     private void StartConversation() {
         Debug.Log($"Started conversation with {name}.");
+        
+        Debug.Log(inputManager.Character.Move);
         isCurrentConversation = true;
         dialogueRunner.StartDialogue(conversationStartNode);
     }
@@ -46,12 +49,16 @@ public class YarnInteractable : MonoBehaviour {
         if (isCurrentConversation) {
             isCurrentConversation = false;
             Debug.Log($"Ended conversation with {name}.");
+            
+            
         }
+        
     }
 
     [YarnCommand("enable")]
     public void EnableConversation() {
         interactable = true;
+        inputManager.Enable();
     }
 
     [YarnCommand("disable")]
