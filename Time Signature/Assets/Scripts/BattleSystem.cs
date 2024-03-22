@@ -149,14 +149,14 @@ public class BattleSystem : MonoBehaviour
             //Change state to won if they are dead
             state = BattleState.WON;
             enemyUnit.gameObject.SetActive(false);
-            AttackButton.SetActive(false);
+            AttackButton.GetComponent<Button>().interactable = false;
             EndBattle();
         }
         else
         {
             //change state to enemy turn if they are not dead
             state = BattleState.ENEMYTURN;
-            AttackButton.SetActive(false);
+            AttackButton.GetComponent<Button>().interactable = false;
             StartCoroutine(EnemyTurn());
         }
     }
@@ -215,7 +215,7 @@ public class BattleSystem : MonoBehaviour
     void PlayerTurn()
     {
         Debug.Log("Player turn!");
-        AttackButton.SetActive(true);
+        AttackButton.GetComponent<Button>().interactable = true;
     }
 
     public void OnAttackButton()
@@ -223,7 +223,7 @@ public class BattleSystem : MonoBehaviour
         if (state != BattleState.PLAYERTURN){
             return;
         }
-        AttackButton.SetActive(false);
+        AttackButton.GetComponent<Button>().interactable = false;
         PlayerAttack();
     }
 

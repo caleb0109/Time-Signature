@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 public class PauseMenu : MonoBehaviour
 {
     public GameObject pausePanel;
+    public AudioSource menuOpenSound;
     private InputManager inputManager;
 
 
@@ -28,6 +29,10 @@ public class PauseMenu : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            if (pausePanel.activeSelf == false)
+            {
+                menuOpenSound.Play();
+            }
             pausePanel.SetActive(true);
         }
     }
