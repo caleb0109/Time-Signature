@@ -8,10 +8,33 @@ public class BeatManager : MonoBehaviour
 {
     [SerializeField]
     private List<Attack> attacks;
-    // Update is called once per frame
-    void Update()
-    {
 
+    [SerializeField]
+    private AudioClip audioToTurnIntoBeat;
+    [SerializeField]
+    private int fftWindowSize;
+
+    [SerializeField]
+    private Beat outputBeat;
+
+    [SerializeField]
+    private AudioSource audioSource;
+
+    // Update is called once per frame
+    void Start()
+    {
+        // int sampleCount = audioToTurnIntoBeat.samples;
+        // float[] samples = new float[sampleCount];
+        // audioToTurnIntoBeat.GetData(samples, 0);
+        // int fftSteps = sampleCount/fftWindowSize;
+        // audioSource.clip = audioToTurnIntoBeat;
+        // audioSource.Play();
+    }
+
+    IEnumerator CalculateBeat()
+    {
+        
+        yield return null;
     }
 
     public Attack GetAttack(int attackIndex)
