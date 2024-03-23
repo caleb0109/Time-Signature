@@ -174,6 +174,7 @@ public class BattleSystem : MonoBehaviour
         //enemyPrefab
         Debug.Log("Enemy turn!");
         enemyAnimator.SetTrigger("Attack");
+        playerAnimator.SetTrigger("Damage");
 
         yield return new WaitForSeconds(1f);
 
