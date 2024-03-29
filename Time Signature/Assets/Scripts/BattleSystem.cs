@@ -164,7 +164,7 @@ public class BattleSystem : MonoBehaviour
     public void PickAttack(int beatIndex)
     {
         beatSelector.SetActive(false);
-        rhythmMan.SetBeat(beatManager.GetAttack(beatIndex).beat);
+        rhythmMan.SetBeat(beatManager.GetAttack(beatIndex));
         rhythmMan.ShowExample();
         rhythmMan.BeginInput(PlayerRhythmFinished);
     }

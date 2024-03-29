@@ -12210,14 +12210,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb60f83f3ac57ca288a88f0a20cb08df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentBeat:
-    times:
-    - 0
-    - 0.35
-    - 0.35
-    - 0.5
-    - 0.5
-    beatIndex: 0
+  currentAttack:
+    name: 
+    beat:
+      times: []
+      beatIndex: 0
+    attack: 0
+    backgroundMusicStartInterval: 0
   indicator: {fileID: 5187510861396126050, guid: 4a9c1b18fcbad46d586747fa50b0cea0, type: 3}
   exampleStartPos: {x: -3, y: 3}
   exampleOffset: {x: 2, y: 0}
@@ -12232,6 +12231,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 1e4cb4e9455b28240b9353882f94cd14, type: 3}
   - {fileID: 8300000, guid: 96948c0ea60a97d43b26a9ce80abc721, type: 3}
   chosenBeatSounds: 
+  backgroundAudioSource: {fileID: 1825282667}
   isDone: 0
 --- !u!82 &1530574183
 AudioSource:
@@ -12359,28 +12359,48 @@ MonoBehaviour:
   - name: Punch
     beat:
       times:
-      - 0.25
-      - 0.25
+      - 0.4
+      - 0.4
+      - 0.5
       - 0.5
       beatIndex: 0
     attack: 3
+    backgroundMusicStartInterval: 0.2
   - name: Stab
     beat:
       times:
+      - 0
+      - 0.15
       - 0.25
-      - 0.5
-      - 0.5
+      - 0.15
+      - 0.25
+      - 0.15
+      - 0.25
+      - 0.25
+      - 0.15
       beatIndex: 0
     attack: 5
+    backgroundMusicStartInterval: 0.2
   - name: Slash
     beat:
       times:
-      - 0.25
       - 0.5
+      - 0.4
+      - 0.4
       - 0.25
-      - 0.5
+      - 0.25
+      - 0.1
       beatIndex: 0
     attack: 5
+    backgroundMusicStartInterval: 0.2
+  - name: Cut
+    beat:
+      times:
+      - 0.5
+      - 1
+      beatIndex: 0
+    attack: 5
+    backgroundMusicStartInterval: 0.2
   audioToTurnIntoBeat: {fileID: 0}
   fftWindowSize: 0
   outputBeat:

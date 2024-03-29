@@ -12,7 +12,7 @@ public delegate void BeatFinishedCallback(float score);
 public class RhythmManager : MonoBehaviour
 {
     [SerializeField]
-    private Beat currentBeat;
+    private Attack currentAttack;
 
     //keep track of display progress
     private bool finishedDisplaying;
@@ -48,6 +48,9 @@ public class RhythmManager : MonoBehaviour
     [SerializeField]
     private List<int> chosenBeatSounds;
 
+    [SerializeField]
+    private AudioSource backgroundAudioSource;
+
     //keep track of time since last input, since update isn't used
     private DateTime prevInputTime;
 
@@ -72,9 +75,9 @@ public class RhythmManager : MonoBehaviour
     }
 
 
-    public void SetBeat(Beat beat)
+    public void SetBeat(Attack attack)
     {
-        currentBeat = beat;
+        currentAttack = attack;
     }
 
     public void ShowExample()
@@ -82,7 +85,7 @@ public class RhythmManager : MonoBehaviour
         //set so combat script can keep track of progress
         isDone = false;
         //make sure a beat is set
-        if(currentBeat == null)
+        if(currentAttack == null)
         {
             Debug.LogError("Tried to begin example, but no beat is set");
             return;
@@ -95,7 +98,7 @@ public class RhythmManager : MonoBehaviour
     public void BeginInput(BeatFinishedCallback beatFinishedCallback)
     {
         //make sure a beat is set
-        if(currentBeat == null)
+        if(currentAttack == null)
         {
             Debug.LogError("Tried to begin input, but no beat is set");
             return;
@@ -111,8 +114,14 @@ public class RhythmManager : MonoBehaviour
 
     IEnumerator DisplayBeat()
     {
+        float currentTime = backgroundAudioSource.time;
+        float waitTime = (MathF.Ceiling(currentTime/currentAttack.backgroundMusicStartInterval) * currentAttack.backgroundMusicStartInterval) - currentTime;
+        Debug.Log("Current Time: " + currentTime);
+        Debug.Log("Attack Interval: " + currentAttack.backgroundMusicStartInterval);
+        Debug.Log("Wait Time: " + waitTime);
+        yield return new WaitForSeconds(waitTime);
         //get timing list for convenience
-        List<float> beatTimes = currentBeat.times;
+        List<float> beatTimes = currentAttack.beat.times;
         for(int i = 0; i < beatTimes.Count; i++)
         {
             //wait for the next beat
@@ -146,20 +155,20 @@ public class RhythmManager : MonoBehaviour
         prevInputTime = current;
 
         //spawn an indicator at the next postion and add it to the list
-        Vector2 position = playerStartPos + playerOffset * currentBeat.beatIndex;
+        Vector2 position = playerStartPos + playerOffset * currentAttack.beat.beatIndex;
         indicators.Add(Instantiate(indicator, position, Quaternion.identity));
         //Play the same sound that was used for the example
-        audioController.clip = beatSounds[chosenBeatSounds[currentBeat.beatIndex]];
+        audioController.clip = beatSounds[chosenBeatSounds[currentAttack.beat.beatIndex]];
         audioController.Play();
         //increase the score based on the time since the last input
-        score += currentBeat.GetScore(timeElapsed);
+        score += currentAttack.beat.GetScore(timeElapsed);
 
 
         //indicate time should start counting
         justStarted = false;
 
         //if the player has performed enough inputs for each beat
-        if(currentBeat.IsDone())
+        if(currentAttack.beat.IsDone())
         {
             //delete all spawned indicators
             for(int i = 0; i < indicators.Count; i++)
@@ -179,7 +188,7 @@ public class RhythmManager : MonoBehaviour
             }
 
             //reset the beat so it can be played again
-            currentBeat.Reset();
+            currentAttack.beat.Reset();
             //reset the sounds so new ones can be chosen next time
             chosenBeatSounds.Clear();
         }
