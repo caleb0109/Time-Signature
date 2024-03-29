@@ -12215,8 +12215,10 @@ MonoBehaviour:
     beat:
       times: []
       beatIndex: 0
+    beats: []
     attack: 0
     backgroundMusicStartInterval: 0
+    magic: 0
   indicator: {fileID: 5187510861396126050, guid: 4a9c1b18fcbad46d586747fa50b0cea0, type: 3}
   exampleStartPos: {x: -3, y: 3}
   exampleOffset: {x: 2, y: 0}
@@ -12359,48 +12361,59 @@ MonoBehaviour:
   - name: Punch
     beat:
       times:
-      - 0.4
-      - 0.4
+      - 0
+      - 0.375
+      - 0.375
       - 0.5
       - 0.5
       beatIndex: 0
+    beats: []
     attack: 3
-    backgroundMusicStartInterval: 0.2
+    backgroundMusicStartInterval: 2
+    magic: 0
   - name: Stab
     beat:
       times:
       - 0
-      - 0.15
+      - 0.125
       - 0.25
-      - 0.15
+      - 0.125
       - 0.25
-      - 0.15
+      - 0.125
+      - 0.25
+      - 0.125
       - 0.25
       - 0.25
-      - 0.15
+      - 0.125
       beatIndex: 0
+    beats: []
     attack: 5
-    backgroundMusicStartInterval: 0.2
+    backgroundMusicStartInterval: 2
+    magic: 0
   - name: Slash
     beat:
       times:
       - 0.5
-      - 0.4
-      - 0.4
+      - 0.375
+      - 0.375
       - 0.25
       - 0.25
-      - 0.1
+      - 0.125
       beatIndex: 0
+    beats: []
     attack: 5
-    backgroundMusicStartInterval: 0.2
+    backgroundMusicStartInterval: 2
+    magic: 0
   - name: Cut
     beat:
       times:
       - 0.5
       - 1
       beatIndex: 0
+    beats: []
     attack: 5
-    backgroundMusicStartInterval: 0.2
+    backgroundMusicStartInterval: 2
+    magic: 0
   audioToTurnIntoBeat: {fileID: 0}
   fftWindowSize: 0
   outputBeat:
