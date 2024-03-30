@@ -25,6 +25,12 @@ public class CharacterMovement : MonoBehaviour
 
     [SerializeField]
     private GameObject cam;
+    [SerializeField]
+    //private GameObject playerGO;
+
+    private Animator playerAnim;
+    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,6 +41,8 @@ public class CharacterMovement : MonoBehaviour
 
         //determine how much to move vertically to represent depth
         verticalWalkSpeed = Mathf.Sin(viewAngle);
+
+        playerAnim = this.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -50,6 +58,17 @@ public class CharacterMovement : MonoBehaviour
         // Move the character and camera
         transform.Translate(velocity * Time.deltaTime);
         cam.transform.position = new Vector3(cameraVelocity.x, cam.transform.position.y, cam.transform.position.z);
+
+
+        playerAnim.SetFloat("Speed", velocity.x);
+
+        if (velocity.x < 0){
+            this.transform.localScale = new Vector3(-0.6f,0.6f,0.6f);
+        } else if (velocity.x > 0){
+            this.transform.localScale = new Vector3(0.6f,0.6f,0.6f);
+        }
+
+        
     }
 
     void Move(InputAction.CallbackContext inputCtx)
