@@ -25,8 +25,6 @@ public class CharacterMovement : MonoBehaviour
 
     [SerializeField]
     private GameObject cam;
-    [SerializeField]
-    //private GameObject playerGO;
 
     private Animator playerAnim;
     
@@ -68,6 +66,7 @@ public class CharacterMovement : MonoBehaviour
             this.transform.localScale = new Vector3(0.6f,0.6f,0.6f);
         }
 
+        Debug.Log(velocity.x);
         
     }
 

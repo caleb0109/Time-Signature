@@ -31,7 +31,7 @@ public class YarnInteractable : MonoBehaviour {
     }
 
     public void Interact(InputAction.CallbackContext inputCtx) {
-        if (interactable && !dialogueRunner.IsDialogueRunning && this.transform.position.x - player.transform.position.x > -1 && this.transform.position.x - player.transform.position.x < 1 && this.transform.position.y - player.transform.position.y > -1 && this.transform.position.y - player.transform.position.y < 1) {
+        if (interactable && !dialogueRunner.IsDialogueRunning && this.transform.position.x - player.transform.position.x > -2 && this.transform.position.x - player.transform.position.x < 2 && this.transform.position.y - player.transform.position.y > -1 && this.transform.position.y - player.transform.position.y < 1) {
             StartConversation();
             inputManager.Disable();
         }
