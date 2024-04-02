@@ -49,7 +49,7 @@ public class YarnInteractable : MonoBehaviour {
         if (isCurrentConversation) {
             isCurrentConversation = false;
             Debug.Log($"Ended conversation with {name}.");
-            
+            EnableConversation();
             
         }
         
