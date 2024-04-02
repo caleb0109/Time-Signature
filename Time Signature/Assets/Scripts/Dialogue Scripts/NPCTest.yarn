@@ -40,4 +40,25 @@ Villager: Oh hello there!
     Villager: I'm jealous of how animated you are.
 -> Goodbye
 ===
+title: VillagerTwo
+---
+Villager: Oh, another knight.
+Villager: Welcome to our humble little village.
+Villager: Is there a reason you're here? There's already a knight here.
+Villager: He's right over there.
+===
+title: CaptainOne
+---
+Captain: Ha! Just the knight I wanted to see.
+Captain: NOT!
+Captain: Why are you here, you miserable dancing hoodlum?
+-> What's going on?
+    Captain: Like I'd tell you!
+    Captain: Things are under control, so you can leave now.
+-> I'm here to save the village!
+    Captain: HA! You?
+    Captain: As if you could do such a thing.
+-> Goodbye
+===
+
 
