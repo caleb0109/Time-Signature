@@ -5968,9 +5968,9 @@ GameObject:
   - component: {fileID: 741141880}
   - component: {fileID: 741141879}
   - component: {fileID: 741141878}
-  - component: {fileID: 741141881}
   - component: {fileID: 741141883}
   - component: {fileID: 741141882}
+  - component: {fileID: 741141884}
   m_Layer: 0
   m_Name: Villager
   m_TagString: Untagged
@@ -6057,19 +6057,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 966039736}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &741141881
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 741141877}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d777d7a2096f1c24296bfc434bd37669, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerGO: {fileID: 1345022202}
 --- !u!61 &741141882
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6131,6 +6118,19 @@ MonoBehaviour:
   beginsInteractable: 1
   useIndicatorLight: 0
   player: {fileID: 1345022202}
+--- !u!114 &741141884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 741141877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 265c55007d21e6d4d893598759d5861a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerGO: {fileID: 1345022202}
 --- !u!1 &765375748
 GameObject:
   m_ObjectHideFlags: 0
