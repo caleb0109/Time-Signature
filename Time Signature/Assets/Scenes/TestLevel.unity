@@ -10061,6 +10061,14 @@ PrefabInstance:
       propertyPath: walkSpeed
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 7615474088144942108, guid: d9e5005baaeb9c94888bf7b3da348d16, type: 3}
+      propertyPath: accelerationSpeed
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 7615474088144942108, guid: d9e5005baaeb9c94888bf7b3da348d16, type: 3}
+      propertyPath: cameraAcceleration
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8326234918444632210, guid: d9e5005baaeb9c94888bf7b3da348d16, type: 3}
       propertyPath: m_Sprite
       value: 
