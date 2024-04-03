@@ -12166,13 +12166,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1530574179}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71f714d19d3805a409bff7604c37c103, type: 3}
+  m_Script: {fileID: 11500000, guid: e2728c4a8a54f4e41a19cc6bf87397bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 6864617053904889085, guid: 30fbfe2f2fb192c41aee97056d766cec, type: 3}
-  enemyPrefab: {fileID: 1725374052130129885, guid: c9d5005c26ea4cd42a1f340ca4037213, type: 3}
+  Wolf: {fileID: 8198553717934566837, guid: 38acfe1c9c789e644ac7282e8964bd41, type: 3}
+  Slime: {fileID: 1725374052130129885, guid: c9d5005c26ea4cd42a1f340ca4037213, type: 3}
   AttackButton: {fileID: 485958929}
-  healthBar: {fileID: 1255590315}
+  healthBar: {fileID: 1826886042}
   playerSpot: {fileID: 579747869}
   enemySpot: {fileID: 1280483353}
   state: 0
@@ -12215,8 +12216,10 @@ MonoBehaviour:
     beat:
       times: []
       beatIndex: 0
+    beats: []
     attack: 0
     backgroundMusicStartInterval: 0
+    magic: 0
   indicator: {fileID: 5187510861396126050, guid: 4a9c1b18fcbad46d586747fa50b0cea0, type: 3}
   exampleStartPos: {x: -3, y: 3}
   exampleOffset: {x: 2, y: 0}
@@ -12364,8 +12367,10 @@ MonoBehaviour:
       - 0.5
       - 0.5
       beatIndex: 0
+    beats: []
     attack: 3
     backgroundMusicStartInterval: 0.2
+    magic: 0
   - name: Stab
     beat:
       times:
@@ -12379,8 +12384,10 @@ MonoBehaviour:
       - 0.25
       - 0.15
       beatIndex: 0
+    beats: []
     attack: 5
     backgroundMusicStartInterval: 0.2
+    magic: 0
   - name: Slash
     beat:
       times:
@@ -12391,16 +12398,20 @@ MonoBehaviour:
       - 0.25
       - 0.1
       beatIndex: 0
+    beats: []
     attack: 5
     backgroundMusicStartInterval: 0.2
+    magic: 0
   - name: Cut
     beat:
       times:
       - 0.5
       - 1
       beatIndex: 0
+    beats: []
     attack: 5
     backgroundMusicStartInterval: 0.2
+    magic: 0
   audioToTurnIntoBeat: {fileID: 0}
   fftWindowSize: 0
   outputBeat:

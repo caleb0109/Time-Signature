@@ -12,7 +12,9 @@ public class BattleSystem : MonoBehaviour
 
 
     public GameObject playerPrefab;
-    public GameObject enemyPrefab;
+    public GameObject Wolf;
+    public GameObject Slime;
+    private GameObject enemyPrefab;
 
     public GameObject AttackButton;
 
@@ -57,8 +59,14 @@ public class BattleSystem : MonoBehaviour
     {
         GameObject playerGO = Instantiate(playerPrefab, playerSpot);
         playerUnit = playerGO.GetComponent<Unit>();
-
-
+        Debug.Log(EnemyEncounter.enemyName);
+        if (EnemyEncounter.enemyName == "Wolf (UnityEngine.GameObject)")
+        {
+            enemyPrefab = Wolf;
+        } else
+        {
+            enemyPrefab = Slime;
+        }
         GameObject enemyGO = Instantiate(enemyPrefab, enemySpot);
         enemyUnit = enemyGO.GetComponent<Unit>();
 
