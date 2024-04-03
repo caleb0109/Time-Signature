@@ -11,6 +11,8 @@ public class YarnInteractable : MonoBehaviour {
     [SerializeField] private bool useIndicatorLight;
     [SerializeField] private GameObject player;
 
+    [SerializeField] CharacterMovement movement;
+
     // internal properties not exposed to editor
     private DialogueRunner dialogueRunner;
     private Light lightIndicatorObject;
@@ -24,7 +26,6 @@ public class YarnInteractable : MonoBehaviour {
         dialogueRunner.onDialogueComplete.AddListener(EndConversation);
         //lightIndicatorObject = GetComponentInChildren<Light>();
         interactable = beginsInteractable;
-
         inputManager = new InputManager();
         inputManager.Enable();
         inputManager.Character.Interact.performed += ctx => Interact(ctx);
@@ -39,7 +40,7 @@ public class YarnInteractable : MonoBehaviour {
 
     private void StartConversation() {
         Debug.Log($"Started conversation with {name}.");
-        
+        inputManager.Disable();
         Debug.Log(inputManager.Character.Move);
         isCurrentConversation = true;
         dialogueRunner.StartDialogue(conversationStartNode);

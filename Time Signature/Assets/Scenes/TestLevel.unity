@@ -6118,6 +6118,7 @@ MonoBehaviour:
   beginsInteractable: 1
   useIndicatorLight: 0
   player: {fileID: 1345022202}
+  movement: {fileID: 1306512567}
 --- !u!114 &741141884
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7251,6 +7252,7 @@ MonoBehaviour:
   beginsInteractable: 1
   useIndicatorLight: 0
   player: {fileID: 1345022202}
+  movement: {fileID: 1306512567}
 --- !u!212 &934564228
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8523,6 +8525,7 @@ MonoBehaviour:
   beginsInteractable: 1
   useIndicatorLight: 0
   player: {fileID: 1345022202}
+  movement: {fileID: 1306512567}
 --- !u!212 &1041700128
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -10110,6 +10113,17 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1345022214}
   m_SourcePrefab: {fileID: 100100000, guid: d9e5005baaeb9c94888bf7b3da348d16, type: 3}
+--- !u!114 &1306512567 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7615474088144942108, guid: d9e5005baaeb9c94888bf7b3da348d16, type: 3}
+  m_PrefabInstance: {fileID: 1306512566}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1345022202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34611c5d621e0b15eb9c0d7a36d4b3f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1309843664
 GameObject:
   m_ObjectHideFlags: 0
@@ -15828,6 +15842,7 @@ MonoBehaviour:
   beginsInteractable: 1
   useIndicatorLight: 0
   player: {fileID: 1345022202}
+  movement: {fileID: 1306512567}
 --- !u!212 &1961293593
 SpriteRenderer:
   m_ObjectHideFlags: 0
