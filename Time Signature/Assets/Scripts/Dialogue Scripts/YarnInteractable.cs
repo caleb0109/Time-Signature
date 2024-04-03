@@ -20,6 +20,7 @@ public class YarnInteractable : MonoBehaviour {
     private bool interactable;
     private bool isCurrentConversation;
     private float defaultIndicatorIntensity;
+    private CharacterMovement rb;
 
     public void Start() {
         dialogueRunner = FindObjectOfType<Yarn.Unity.DialogueRunner>();
@@ -28,6 +29,7 @@ public class YarnInteractable : MonoBehaviour {
         interactable = beginsInteractable;
         inputManager = new InputManager();
         inputManager.Enable();
+        rb = player.GetComponent<CharacterMovement>();
         inputManager.Character.Interact.performed += ctx => Interact(ctx);
     }
 
@@ -40,6 +42,7 @@ public class YarnInteractable : MonoBehaviour {
 
     private void StartConversation() {
         Debug.Log($"Started conversation with {name}.");
+        rb.enabled = false;
         inputManager.Disable();
         Debug.Log(inputManager.Character.Move);
         isCurrentConversation = true;
@@ -49,9 +52,9 @@ public class YarnInteractable : MonoBehaviour {
     private void EndConversation() {
         if (isCurrentConversation) {
             isCurrentConversation = false;
+            rb.enabled = true;
             Debug.Log($"Ended conversation with {name}.");
             EnableConversation();
-            
         }
         
     }
