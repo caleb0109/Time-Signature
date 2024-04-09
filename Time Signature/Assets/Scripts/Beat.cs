@@ -9,27 +9,44 @@ public class Beat
 {
     public List<float> times;
     public int beatIndex;
+    private float totalTime = 0;
+    private int lastBeatScored = -1;
 
     public float GetScore(float time)
     {
-        if(!IsDone())
+        totalTime += time;
+        while(beatIndex < times.Count && totalTime > times[beatIndex])
         {
-            float score = Mathf.Max(0, 1 - Mathf.Abs(times[beatIndex] - time));
+            totalTime -= times[beatIndex];
             beatIndex++;
-            return score * score;
         }
 
-        return float.NaN;
+        if(beatIndex >= times.Count)
+        {
+            beatIndex = times.Count - 1;
+        }
+
+        int beatToScore = beatIndex;
+        if(beatIndex != 0 && totalTime < times[beatIndex]/2.0f)
+        {
+            beatToScore--;
+        }
+
+        float score = beatToScore == lastBeatScored ? 0 : Mathf.Max(0, 1 - Mathf.Abs(times[beatToScore] - time));
+        lastBeatScored = beatToScore;
+        return score * score;
     }
 
     public bool IsDone()
     {
-        return beatIndex >= times.Count;
+        return lastBeatScored >= times.Count - 1;
     }
 
     public void Reset()
     {
         beatIndex = 0;
+        lastBeatScored = -1;
+        totalTime = 0;
     }
 
 }

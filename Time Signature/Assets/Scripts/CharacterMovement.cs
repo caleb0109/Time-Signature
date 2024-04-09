@@ -25,6 +25,10 @@ public class CharacterMovement : MonoBehaviour
 
     [SerializeField]
     private GameObject cam;
+
+    private Animator playerAnim;
+    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,21 +39,35 @@ public class CharacterMovement : MonoBehaviour
 
         //determine how much to move vertically to represent depth
         verticalWalkSpeed = Mathf.Sin(viewAngle);
+
+        playerAnim = this.GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
         // Update the character's velocity to approach the target
-        velocity = Vector2.Lerp(velocity, targetVelocity, Time.deltaTime * accelerationSpeed);
+        velocity = Vector2.Lerp(velocity, targetVelocity, 1);
         // Camera velocity is updated by a fraction of the character's acceleration speed so it lags behind
-        cameraVelocity = Vector2.Lerp(cam.transform.position, transform.position, Time.deltaTime * cameraAcceleration * accelerationSpeed);
+        cameraVelocity = Vector2.Lerp(cam.transform.position, transform.position, Time.deltaTime * cameraAcceleration);
         // Camera doesn't move up or down
         cameraVelocity.y = 0;
 
         // Move the character and camera
-        transform.Translate(velocity * Time.deltaTime);
+        transform.Translate(targetVelocity * Time.deltaTime);
         cam.transform.position = new Vector3(cameraVelocity.x, cam.transform.position.y, cam.transform.position.z);
+
+
+        playerAnim.SetFloat("Speed", velocity.x);
+
+        if (velocity.x < 0){
+            this.transform.localScale = new Vector3(-0.6f,0.6f,0.6f);
+        } else if (velocity.x > 0){
+            this.transform.localScale = new Vector3(0.6f,0.6f,0.6f);
+        }
+
+        Debug.Log(velocity.x);
+        
     }
 
     void Move(InputAction.CallbackContext inputCtx)

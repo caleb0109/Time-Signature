@@ -25,3 +25,40 @@ Wolf: I am a wolf.
 ...
 Wolf: I don't know what you expected from this interaction.
 ===
+title: VillagerOne
+---
+Villager: Oh hello there!
+
+-> Who are you?
+    Villager: Oh me? I'm just your average villager. From the village outside the forest.
+    Villager: Just doing my thing, so to speak.
+-> What are you doing out here?
+    Villager: Oh, nothing in particular.
+    Villager: I just went for a walk, and next thing I know, the forest has a slime problem.
+    Villager: So those guards over there told me I need to stay near them until it gets sorted.
+    Villager: That's just how life is though. One minute you're taking a nice walk and the next, you're standing still in a forest.
+    Villager: I'm jealous of how animated you are.
+-> Goodbye
+===
+title: VillagerTwo
+---
+Villager: Oh, another knight.
+Villager: Welcome to our humble little village.
+Villager: Is there a reason you're here? There's already a knight here.
+Villager: He's right over there.
+===
+title: CaptainOne
+---
+Captain: Ha! Just the knight I wanted to see.
+Captain: NOT!
+Captain: Why are you here, you miserable dancing hoodlum?
+-> What's going on?
+    Captain: Like I'd tell you!
+    Captain: Things are under control, so you can leave now.
+-> I'm here to save the village!
+    Captain: HA! You?
+    Captain: As if you could do such a thing.
+-> Goodbye
+===
+
+

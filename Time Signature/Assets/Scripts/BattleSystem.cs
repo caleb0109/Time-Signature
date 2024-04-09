@@ -165,8 +165,7 @@ public class BattleSystem : MonoBehaviour
     {
         beatSelector.SetActive(false);
         rhythmMan.SetBeat(beatManager.GetAttack(beatIndex));
-        rhythmMan.ShowExample();
-        rhythmMan.BeginInput(PlayerRhythmFinished);
+        rhythmMan.BeginBeat(PlayerRhythmFinished);
     }
 
     IEnumerator EnemyTurn()
