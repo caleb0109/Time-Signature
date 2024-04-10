@@ -7,33 +7,65 @@ using UnityEngine;
 public class BeatManager : MonoBehaviour
 {
     [SerializeField]
+    private int bpm;
+    [SerializeField]
+    private int beatsPerMeasure;
+    [SerializeField]
+    private int fullBeat;
+
+    [SerializeField]
+    private List<AttackGenerator> attackGenerators;
+
+    [SerializeField]
     private List<Attack> attacks;
-
-    [SerializeField]
-    private AudioClip audioToTurnIntoBeat;
-    [SerializeField]
-    private int fftWindowSize;
-
-    [SerializeField]
-    private Beat outputBeat;
-
-    [SerializeField]
-    private AudioSource audioSource;
 
     // Update is called once per frame
     void Start()
     {
-        // int sampleCount = audioToTurnIntoBeat.samples;
-        // float[] samples = new float[sampleCount];
-        // audioToTurnIntoBeat.GetData(samples, 0);
-        // int fftSteps = sampleCount/fftWindowSize;
-        // audioSource.clip = audioToTurnIntoBeat;
-        // audioSource.Play();
+        float secondsPerBeat = 60.0f/bpm;
+        float totalNotes = beatsPerMeasure * (16.0f/fullBeat);
+        float rhythmLength = secondsPerBeat * beatsPerMeasure;
+        float secondsPerNote = rhythmLength/totalNotes;
+
+        Debug.Log($"Total Notes: {totalNotes}\nRhythm Length: {rhythmLength}\nNote Length: {secondsPerNote}");
+
+        if(attackGenerators != null)
+        {
+            attacks = new List<Attack>();
+            for(int i = 0; i < attackGenerators.Count; i++)
+            {
+                string beatString = attackGenerators[i].beatString;
+                if(beatString == null)
+                {
+                    Debug.LogError($"Beat {i} does not have a beat string");
+                }
+                int beatLength = beatString.Length;
+                if(beatLength != totalNotes)
+                {
+                    Debug.LogWarning($"Beat String {i} ({beatLength} chars) is not the same length as the total notes ({totalNotes})");
+                }
+                float delayBeforeNextBeat = secondsPerNote;
+                Beat beat = new Beat();
+                for(int j = 0; j < beatLength; j++)
+                {
+                    if(beatString[j] == 'x')
+                    {
+                        beat.times.Add(delayBeforeNextBeat);
+                        delayBeforeNextBeat = secondsPerNote;
+                    }
+                    else if(beatString[j] == 'o')
+                    {
+                        delayBeforeNextBeat += secondsPerNote;
+                    }
+                }
+                attacks.Add(new Attack(attackGenerators[i].attackName, beat, attackGenerators[i].beatStrength, secondsPerBeat * beatsPerMeasure));
+            }
+        }
     }
 
     IEnumerator CalculateBeat()
     {
-        
+
         yield return null;
     }
 

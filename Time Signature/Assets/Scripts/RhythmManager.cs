@@ -19,6 +19,7 @@ public class RhythmManager : MonoBehaviour
     //keep track of first note of a beat
     private bool justStarted;
 
+
     //object to display for beats
     [SerializeField]
     private GameObject indicator;
@@ -56,6 +57,8 @@ public class RhythmManager : MonoBehaviour
 
     void Start()
     {
+
+
         //enable input and set startDisplaying to start
         inputManager = new InputManager();
         inputManager.Character.PlayNote.performed += ctx => PlayNote(ctx);
@@ -96,7 +99,7 @@ public class RhythmManager : MonoBehaviour
             return;
         }
 
-        for(int i = 0; i < currentAttack.beat.times.Count; i++)
+        for(int i = 0; i < currentAttack.beats[0].times.Count; i++)
         {
             indicators.Add(Instantiate(indicator));
         }
@@ -104,7 +107,7 @@ public class RhythmManager : MonoBehaviour
         //begin displaying the example
         prevInputTime = DateTime.Now;
         double currentTime = backgroundAudioSource.time;
-        double waitTime = (Math.Ceiling(currentTime/currentAttack.backgroundMusicStartInterval) * currentAttack.backgroundMusicStartInterval) - currentTime;
+        double waitTime = (Math.Ceiling(currentTime/currentAttack.musicLoopInterval) * currentAttack.musicLoopInterval) - currentTime;
         prevInputTime = prevInputTime.AddSeconds(waitTime);
         StartCoroutine(DisplayBeat(waitTime));
     }
@@ -112,7 +115,7 @@ public class RhythmManager : MonoBehaviour
     IEnumerator DisplayBeat(double waitTime)
     {
         //get timing list for convenience
-        List<float> beatTimes = currentAttack.beat.times;
+        List<float> beatTimes = currentAttack.beats[0].times;
         float totalTime = (float)waitTime;
         for(int i = 0; i < beatTimes.Count; i++)
         {
@@ -151,10 +154,10 @@ public class RhythmManager : MonoBehaviour
         audioController.clip = beatSounds[(int)UnityEngine.Random.Range(0, beatSounds.Length)];
         audioController.Play();
         //increase the score based on the time since the last input
-        score += currentAttack.beat.GetScore(timeElapsed);
+        score += currentAttack.beats[0].GetScore(timeElapsed);
 
         //if the player has performed enough inputs for each beat
-        if(currentAttack.beat.IsDone())
+        if(currentAttack.beats[0].IsDone())
         {
             //disable input
             inputManager.Disable();
@@ -164,11 +167,11 @@ public class RhythmManager : MonoBehaviour
             //and pass it the score
             if(callback != null)
             {
-                callback(score);
+                callback(score * currentAttack.attack);
             }
 
             //reset the beat so it can be played again
-            currentAttack.beat.Reset();
+            currentAttack.beats[0].Reset();
         }
     }
 }

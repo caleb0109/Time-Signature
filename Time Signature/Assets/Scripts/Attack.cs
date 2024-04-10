@@ -7,21 +7,43 @@ using UnityEngine;
 public class Attack
 {
     public string name;
-    public Beat beat;
     public List<Beat> beats;
-    public int attack;
-    public float backgroundMusicStartInterval;
+    public float attack;
+    public float musicLoopInterval;
     public bool magic;
+
+    public Attack()
+    {
+    }
+
+    public Attack(string name, List<Beat> beats, float attack, float loopInterval)
+    {
+        magic = true;
+        this.name = name;
+        this.beats = beats;
+        this.attack = attack;
+        this.musicLoopInterval = loopInterval;
+    }
+
+    public Attack(string name, Beat beat, float attack, float loopInterval)
+    {
+        magic = false;
+        this.name = name;
+        beats = new List<Beat>();
+        beats.Add(beat);
+        this.attack = attack;
+        this.musicLoopInterval = loopInterval;
+    }
 
     public float Score(float time, int index)
     {
         if(!magic)
         {
-            return beat.GetScore(time);
+            return beats[0].GetScore(time);
         }
         else
         {
-            return 0;
+            return beats[index].GetScore(time);
         }
     }
 }

@@ -9,8 +9,16 @@ public class Beat
 {
     public List<float> times;
     public int beatIndex;
-    private float totalTime = 0;
-    private int lastBeatScored = -1;
+    private float totalTime;
+    private int lastBeatScored;
+
+    public Beat()
+    {
+        times = new List<float>();
+        beatIndex = 0;
+        totalTime = 0;
+        lastBeatScored = -1;
+    }
 
     public float GetScore(float time)
     {
