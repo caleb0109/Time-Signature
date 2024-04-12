@@ -12483,6 +12483,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 96948c0ea60a97d43b26a9ce80abc721, type: 3}
   backgroundAudioSource: {fileID: 1825282667}
   isDone: 0
+  beatsFinished: 0
 --- !u!82 &1530574183
 AudioSource:
   m_ObjectHideFlags: 0
@@ -12605,25 +12606,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ad219d3d10850abfac048e23e1d2483, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bpm: 120
+  bpm: 144
   beatsPerMeasure: 4
   fullBeat: 4
   attackGenerators:
   - attackName: Punch
     beatStrings:
-    - xooxooxoooxoooxo
+    - xoooooxoooooxooo
     beatStrength: 1
   - attackName: Stab
     beatStrings:
-    - xxoxxoxxoxxoxoxx
-    beatStrength: 0.5
+    - xoooxoxoooxoxoxo
+    beatStrength: 1
   - attackName: Slash
     beatStrings:
-    - ooooxooxooxoxoxx
+    - xoxoxoxoooxoooxo
     beatStrength: 1
   - attackName: Cut
     beatStrings:
-    - ooooxoooooooxooo
+    - xoxoooxoooxooxoo
     beatStrength: 2
   - attackName: ????
     beatStrings:
@@ -14794,7 +14795,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 124f8e0e54c47b1439996132ad317ffb, type: 3}
+  m_audioClip: {fileID: 8300000, guid: db54814738e864b4cb4208f84f1403ae, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
