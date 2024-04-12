@@ -34,31 +34,37 @@ public class BeatManager : MonoBehaviour
             attacks = new List<Attack>();
             for(int i = 0; i < attackGenerators.Count; i++)
             {
-                string beatString = attackGenerators[i].beatString;
-                if(beatString == null)
+                List<Beat> beats = new List<Beat>();
+                for(int j = 0; j < attackGenerators[i].beatStrings.Count; j++)
                 {
-                    Debug.LogError($"Beat {i} does not have a beat string");
-                }
-                int beatLength = beatString.Length;
-                if(beatLength != totalNotes)
-                {
-                    Debug.LogWarning($"Beat String {i} ({beatLength} chars) is not the same length as the total notes ({totalNotes})");
-                }
-                float delayBeforeNextBeat = secondsPerNote;
-                Beat beat = new Beat();
-                for(int j = 0; j < beatLength; j++)
-                {
-                    if(beatString[j] == 'x')
+                    string beatString = attackGenerators[i].beatStrings[j];
+                    if(beatString == null)
                     {
-                        beat.times.Add(delayBeforeNextBeat);
-                        delayBeforeNextBeat = secondsPerNote;
+                        Debug.LogError($"Beat {i} does not have a beat string");
                     }
-                    else if(beatString[j] == 'o')
+                    int beatLength = beatString.Length;
+                    if(beatLength != totalNotes)
                     {
-                        delayBeforeNextBeat += secondsPerNote;
+                        Debug.LogWarning($"Beat String {i} ({beatLength} chars) is not the same length as the total notes ({totalNotes})");
                     }
+                    float delayBeforeNextBeat = secondsPerNote;
+                    Beat beat = new Beat();
+                    for(int k = 0; k < beatLength; k++)
+                    {
+                        if(beatString[k] == 'x')
+                        {
+                            beat.times.Add(delayBeforeNextBeat);
+                            delayBeforeNextBeat = secondsPerNote;
+                        }
+                        else if(beatString[k] == 'o')
+                        {
+                            delayBeforeNextBeat += secondsPerNote;
+                        }
+                    }
+
+                    beats.Add(beat);
                 }
-                attacks.Add(new Attack(attackGenerators[i].attackName, beat, attackGenerators[i].beatStrength, secondsPerBeat * beatsPerMeasure));
+                attacks.Add(new Attack(attackGenerators[i].attackName, beats, attackGenerators[i].beatStrength, secondsPerBeat * beatsPerMeasure));
             }
         }
     }

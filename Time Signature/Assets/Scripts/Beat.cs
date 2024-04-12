@@ -35,7 +35,7 @@ public class Beat
         }
 
         int beatToScore = beatIndex;
-        if(beatIndex != 0 && totalTime < times[beatIndex]/2.0f)
+        if(beatIndex != 0 && (totalTime < times[beatIndex]/2.0f || beatIndex == lastBeatScored))
         {
             beatToScore--;
         }

@@ -18,19 +18,9 @@ public class Attack
 
     public Attack(string name, List<Beat> beats, float attack, float loopInterval)
     {
-        magic = true;
+        magic = beats.Count > 1;
         this.name = name;
         this.beats = beats;
-        this.attack = attack;
-        this.musicLoopInterval = loopInterval;
-    }
-
-    public Attack(string name, Beat beat, float attack, float loopInterval)
-    {
-        magic = false;
-        this.name = name;
-        beats = new List<Beat>();
-        beats.Add(beat);
         this.attack = attack;
         this.musicLoopInterval = loopInterval;
     }

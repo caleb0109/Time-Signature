@@ -28,6 +28,8 @@ public class RhythmManager : MonoBehaviour
     private Vector2 exampleStartPos;
     [SerializeField]
     private float exampleSpeed;
+    [SerializeField]
+    private float beatHeights;
 
     //visible in inspector for testing
     public float score;
@@ -45,13 +47,15 @@ public class RhythmManager : MonoBehaviour
     private AudioSource backgroundAudioSource;
 
     //keep track of time since last input, since update isn't used
-    private DateTime prevInputTime;
+    private List<DateTime> prevInputTime;
 
     //function to call once the player is finished
     private BeatFinishedCallback callback;
 
     //combat system uses this to check progress
     public bool isDone;
+
+    public int beatsFinished;
 
     InputManager inputManager;
 
@@ -61,7 +65,10 @@ public class RhythmManager : MonoBehaviour
 
         //enable input and set startDisplaying to start
         inputManager = new InputManager();
-        inputManager.Character.PlayNote.performed += ctx => PlayNote(ctx);
+        inputManager.Character.PlayNote.performed += ctx => PlayNote(ctx, 0);
+        inputManager.Character.PlayMagicNoteA.performed += ctx => PlayNote(ctx, 1);
+        inputManager.Character.PlayMagicNoteB.performed += ctx => PlayNote(ctx, 2);
+        inputManager.Character.PlayMagicNoteC.performed += ctx => PlayNote(ctx, 3);
         audioController = GetComponent<AudioSource>();
 
         //set isDone to true so we can actually do rhythm
@@ -98,36 +105,39 @@ public class RhythmManager : MonoBehaviour
             Debug.LogError("Tried to begin example, but no beat is set");
             return;
         }
-
-        for(int i = 0; i < currentAttack.beats[0].times.Count; i++)
-        {
-            indicators.Add(Instantiate(indicator));
-        }
-
+        float currentTime = backgroundAudioSource.time;
+        float waitTime = ((MathF.Ceiling(currentTime/currentAttack.musicLoopInterval) + 1) * currentAttack.musicLoopInterval) - currentTime;
+        DateTime startTime = DateTime.Now.AddSeconds(waitTime);
         //begin displaying the example
-        prevInputTime = DateTime.Now;
-        double currentTime = backgroundAudioSource.time;
-        double waitTime = (Math.Ceiling(currentTime/currentAttack.musicLoopInterval) * currentAttack.musicLoopInterval) - currentTime;
-        prevInputTime = prevInputTime.AddSeconds(waitTime);
+        prevInputTime = new List<DateTime>();
+        for(int i = 0; i < currentAttack.beats.Count; i++)
+        {
+            prevInputTime.Add(startTime);
+        }
         StartCoroutine(DisplayBeat(waitTime));
     }
 
-    IEnumerator DisplayBeat(double waitTime)
+    IEnumerator DisplayBeat(float waitTime)
     {
-        //get timing list for convenience
-        List<float> beatTimes = currentAttack.beats[0].times;
-        float totalTime = (float)waitTime;
-        for(int i = 0; i < beatTimes.Count; i++)
+
+        for(int i = 0; i < currentAttack.beats.Count; i++)
         {
-            totalTime += beatTimes[i];
-            indicators[i].transform.position = exampleStartPos + new Vector2(totalTime * exampleSpeed, 0);
+            List<float> beatTimes = currentAttack.beats[i].times;
+            float totalTime = waitTime;
+            for(int j = 0; j < beatTimes.Count; j++)
+            {
+                totalTime += beatTimes[j];
+                indicators.Add(Instantiate(indicator));
+                indicators[indicators.Count - 1].transform.position = exampleStartPos + new Vector2(totalTime * exampleSpeed, i * beatHeights);
+                indicators[indicators.Count - 1].transform.Rotate(new Vector3(0, 0, i * 90));
+            }
         }
 
         while(!isDone)
         {
-            for(int i = 0; i < beatTimes.Count; i++)
+            for(int i = 0; i < indicators.Count; i++)
             {
-                indicators[i].transform.Translate(-Time.deltaTime * exampleSpeed, 0, 0);
+                indicators[i].transform.position += new Vector3(-Time.deltaTime * exampleSpeed, 0, 0);
             }
             yield return null;
         }
@@ -143,26 +153,32 @@ public class RhythmManager : MonoBehaviour
         yield return null;
     }
 
-    void PlayNote(InputAction.CallbackContext ctx)
+    void PlayNote(InputAction.CallbackContext ctx, int index)
     {
         //calculate the time since the last input and update the time to the last input
         DateTime current = DateTime.Now;
-        float timeElapsed = (float)(current - prevInputTime).TotalMilliseconds/1000.0f;
-        prevInputTime = current;
+        float timeElapsed = (float)(current - prevInputTime[index]).TotalMilliseconds/1000.0f;
+        prevInputTime[index] = current;
 
         //Play the same sound that was used for the example
         audioController.clip = beatSounds[(int)UnityEngine.Random.Range(0, beatSounds.Length)];
         audioController.Play();
         //increase the score based on the time since the last input
-        score += currentAttack.beats[0].GetScore(timeElapsed);
-
+        score += currentAttack.beats[index].GetScore(timeElapsed);
+        if(currentAttack.beats[index].IsDone())
+        {
+            beatsFinished++;
+        }
         //if the player has performed enough inputs for each beat
-        if(currentAttack.beats[0].IsDone())
+        if(beatsFinished >= currentAttack.beats.Count)
         {
             //disable input
             inputManager.Disable();
             isDone = true;
 
+            //reset the beat so it can be played again
+            currentAttack.beats[index].Reset();
+            beatsFinished = 0;
             //if a callback was passed in, call it
             //and pass it the score
             if(callback != null)
@@ -170,8 +186,6 @@ public class RhythmManager : MonoBehaviour
                 callback(score * currentAttack.attack);
             }
 
-            //reset the beat so it can be played again
-            currentAttack.beats[0].Reset();
         }
     }
 }
