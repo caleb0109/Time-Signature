@@ -33,6 +33,13 @@ public class PauseMenu : MonoBehaviour
             {
                 menuOpenSound.Play();
             }
+            else if (pausePanel.activeSelf == true)
+            {
+                Time.timeScale = 1;
+
+                Debug.Log(Time.timeScale.ToString());
+                pausePanel.SetActive(false);
+            }
             pausePanel.SetActive(true);
         }
     }
