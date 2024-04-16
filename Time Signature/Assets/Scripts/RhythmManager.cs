@@ -105,7 +105,7 @@ public class RhythmManager : MonoBehaviour
             Debug.LogError("Tried to begin example, but no beat is set");
             return;
         }
-        float currentTime = backgroundAudioSource.time;
+        float currentTime = LoopManager.singleton.audioSources[LoopManager.singleton.audioSourceIndex].time;
         float waitTime = ((MathF.Ceiling(currentTime/currentAttack.musicLoopInterval) + 1) * currentAttack.musicLoopInterval) - currentTime;
         DateTime startTime = DateTime.Now.AddSeconds(waitTime);
         //begin displaying the example
