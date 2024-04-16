@@ -17,6 +17,7 @@ public class BattleSystem : MonoBehaviour
     private GameObject enemyPrefab;
 
     public GameObject AttackButton;
+    public GameObject MagicButton;
 
     public GameObject healthBar;
 
@@ -41,7 +42,9 @@ public class BattleSystem : MonoBehaviour
 
     [SerializeField] private GameObject beatButton;
     [SerializeField] private GameObject beatSelector;
+    [SerializeField] private GameObject magicBeatSelector;
     private RectTransform beatSelectorContent;
+    private RectTransform magicSelectorContent;
 
     private BeatManager beatManager;
 
@@ -52,6 +55,7 @@ public class BattleSystem : MonoBehaviour
         rhythmMan = this.GetComponent<RhythmManager>();
         state = BattleState.START;
         beatSelectorContent = beatSelector.GetComponent<ScrollRect>().content;
+        magicSelectorContent = magicBeatSelector.GetComponent<ScrollRect>().content;
         StartCoroutine(SetUp());
     }
 
@@ -84,6 +88,7 @@ public class BattleSystem : MonoBehaviour
         GenerateBeatSelector();
 
         beatSelector.SetActive(false);
+        magicBeatSelector.SetActive(false);
 
         yield return new WaitForSeconds(0.25f);
 
@@ -101,26 +106,50 @@ public class BattleSystem : MonoBehaviour
 
         RectTransform buttonPrefabTransform = beatButton.GetComponent<RectTransform>();
         float buttonHeight = buttonPrefabTransform.sizeDelta.y;
-        float nextButtonPos = viewportHeight/2.0f - buttonHeight/2.0f - 5.0f;
+        float nextAttackButtonPos = viewportHeight/2.0f - buttonHeight/2.0f - 5.0f;
+        float nextMagicButtonPos = viewportHeight/2.0f - buttonHeight/2.0f - 5.0f;
         for(int i = 0; i < attackCount; i++)
         {
-            GameObject buttonObj = Instantiate(beatButton, beatSelectorContent);
+            bool magic = beatManager.GetAttack(i).magic;
+            GameObject buttonObj;
+            if(magic)
+            {
+                buttonObj = Instantiate(beatButton, magicSelectorContent);
+            }
+            else
+            {
+                buttonObj = Instantiate(beatButton, beatSelectorContent);
+            }
             Button buttonButton = buttonObj.GetComponent<Button>();
             TMP_Text buttonText = buttonObj.GetComponentInChildren<TMP_Text>();
             RectTransform buttonRect = buttonObj.GetComponent<RectTransform>();
 
-            buttonRect.anchoredPosition = new Vector2(0, nextButtonPos);
             int param = i;
             buttonButton.onClick.AddListener(() => {PickAttack(param);});
             buttonText.text = beatManager.GetAttack(i).name;
-
-            nextButtonPos -= buttonHeight + 5.0f;
+            if(magic)
+            {
+                buttonRect.anchoredPosition = new Vector2(0, nextMagicButtonPos);
+                nextMagicButtonPos -= buttonHeight + 5.0f;
+            }
+            else
+            {
+                buttonRect.anchoredPosition = new Vector2(0, nextAttackButtonPos);
+                nextAttackButtonPos -= buttonHeight + 5.0f;
+            }
         }
     }
 
     private void PlayerAttack()
     {
         beatSelector.SetActive(true);
+        magicBeatSelector.SetActive(false);
+    }
+
+    private void PlayerMagicAttack()
+    {
+        magicBeatSelector.SetActive(true);
+        beatSelector.SetActive(false);
     }
 
     public void PlayerRhythmFinished(float score)
@@ -172,6 +201,9 @@ public class BattleSystem : MonoBehaviour
     public void PickAttack(int beatIndex)
     {
         beatSelector.SetActive(false);
+        magicBeatSelector.SetActive(false);
+        AttackButton.GetComponent<Button>().interactable = false;
+        MagicButton.GetComponent<Button>().interactable = false;
         rhythmMan.SetBeat(beatManager.GetAttack(beatIndex));
         rhythmMan.BeginBeat(PlayerRhythmFinished);
     }
@@ -224,6 +256,7 @@ public class BattleSystem : MonoBehaviour
     {
         Debug.Log("Player turn!");
         AttackButton.GetComponent<Button>().interactable = true;
+        MagicButton.GetComponent<Button>().interactable = true;
     }
 
     public void OnAttackButton()
@@ -232,7 +265,18 @@ public class BattleSystem : MonoBehaviour
             return;
         }
         AttackButton.GetComponent<Button>().interactable = false;
+        MagicButton.GetComponent<Button>().interactable = true;
         PlayerAttack();
+    }
+
+    public void OnMagicButton()
+    {
+        if (state != BattleState.PLAYERTURN){
+            return;
+        }
+        MagicButton.GetComponent<Button>().interactable = false;
+        AttackButton.GetComponent<Button>().interactable = true;
+        PlayerMagicAttack();
     }
 
     //A function that updates the UI displaying the player's HP.
