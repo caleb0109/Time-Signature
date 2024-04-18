@@ -130,6 +130,7 @@ public class RhythmManager : MonoBehaviour
                 indicators.Add(Instantiate(indicator));
                 indicators[indicators.Count - 1].transform.position = exampleStartPos + new Vector2(totalTime * exampleSpeed, i * beatHeights);
                 indicators[indicators.Count - 1].transform.Rotate(new Vector3(0, 0, i * 90));
+                indicators[indicators.Count - 1].GetComponent<SpriteRenderer>().maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
             }
         }
 

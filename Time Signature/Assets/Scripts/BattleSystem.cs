@@ -261,22 +261,40 @@ public class BattleSystem : MonoBehaviour
 
     public void OnAttackButton()
     {
-        if (state != BattleState.PLAYERTURN){
+        if (state != BattleState.PLAYERTURN)
+        {
             return;
         }
+
         AttackButton.GetComponent<Button>().interactable = false;
-        MagicButton.GetComponent<Button>().interactable = true;
+        MagicButton.GetComponent<Button>().interactable = false;
         PlayerAttack();
     }
 
     public void OnMagicButton()
     {
-        if (state != BattleState.PLAYERTURN){
+        if (state != BattleState.PLAYERTURN)
+        {
             return;
         }
+
         MagicButton.GetComponent<Button>().interactable = false;
-        AttackButton.GetComponent<Button>().interactable = true;
+        AttackButton.GetComponent<Button>().interactable = false;
         PlayerMagicAttack();
+    }
+
+    public void OnBackButtton()
+    {
+        if (state != BattleState.PLAYERTURN)
+        {
+            return;
+        }
+
+        MagicButton.GetComponent<Button>().interactable = true;
+        AttackButton.GetComponent<Button>().interactable = true;
+
+        beatSelector.SetActive(false);
+        magicBeatSelector.SetActive(false);
     }
 
     //A function that updates the UI displaying the player's HP.
