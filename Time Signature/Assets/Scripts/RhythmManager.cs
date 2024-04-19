@@ -5,6 +5,8 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
+
 
 public delegate void BeatFinishedCallback(float score);
 
@@ -54,6 +56,8 @@ public class RhythmManager : MonoBehaviour
 
     //combat system uses this to check progress
     public bool isDone;
+
+    public GameObject feedbackText;
 
     public int beatsFinished;
 
@@ -165,7 +169,31 @@ public class RhythmManager : MonoBehaviour
         audioController.clip = beatSounds[(int)UnityEngine.Random.Range(0, beatSounds.Length)];
         audioController.Play();
         //increase the score based on the time since the last input
-        score += currentAttack.beats[index].GetScore(timeElapsed);
+        float temp = currentAttack.beats[index].GetScore(timeElapsed);
+        
+        //Perfect
+        if (temp >= 0.9)
+        {
+            feedbackText.GetComponent<TextMeshProUGUI>().text = "Perfect";
+        }
+        //Good
+        else if (temp >= 0.5)
+        {
+            feedbackText.GetComponent<TextMeshProUGUI>().text = "Good";
+        }
+        //Bad
+        else if (temp > 0)
+        {
+            feedbackText.GetComponent<TextMeshProUGUI>().text = "Bad";
+        }
+        //Miss
+        else
+        {
+            feedbackText.GetComponent<TextMeshProUGUI>().text = "Miss";
+        }
+
+        Debug.Log(temp);
+        score += temp;
         if(currentAttack.beats[index].IsDone())
         {
             beatsFinished++;

@@ -19,6 +19,9 @@ public class BattleSystem : MonoBehaviour
     public GameObject AttackButton;
     public GameObject MagicButton;
 
+    public GameObject attackDisplay;
+    public GameObject feedbackText;
+
     public GameObject healthBar;
 
     public Transform playerSpot;
@@ -164,6 +167,7 @@ public class BattleSystem : MonoBehaviour
 
         playerAnimator.SetTrigger("Attack");
         yield return new WaitForSeconds(1f);
+        feedbackText.GetComponent<TextMeshProUGUI>().text = "";
         dmgToEnemy.text = dmgTaken.ToString();
         dmgToEnemy.gameObject.SetActive(true);
 
@@ -254,9 +258,11 @@ public class BattleSystem : MonoBehaviour
 
     void PlayerTurn()
     {
+
         Debug.Log("Player turn!");
         AttackButton.GetComponent<Button>().interactable = true;
         MagicButton.GetComponent<Button>().interactable = true;
+        attackDisplay.SetActive(false);
     }
 
     public void OnAttackButton()
@@ -265,6 +271,9 @@ public class BattleSystem : MonoBehaviour
         {
             return;
         }
+
+        attackDisplay.SetActive(true);
+        attackDisplay.transform.GetChild(1).gameObject.SetActive(false);
 
         AttackButton.GetComponent<Button>().interactable = false;
         MagicButton.GetComponent<Button>().interactable = false;
@@ -278,6 +287,8 @@ public class BattleSystem : MonoBehaviour
             return;
         }
 
+        attackDisplay.SetActive(true);
+        attackDisplay.transform.GetChild(1).gameObject.SetActive(true);
         MagicButton.GetComponent<Button>().interactable = false;
         AttackButton.GetComponent<Button>().interactable = false;
         PlayerMagicAttack();
@@ -290,6 +301,7 @@ public class BattleSystem : MonoBehaviour
             return;
         }
 
+        attackDisplay.SetActive(false);
         MagicButton.GetComponent<Button>().interactable = true;
         AttackButton.GetComponent<Button>().interactable = true;
 

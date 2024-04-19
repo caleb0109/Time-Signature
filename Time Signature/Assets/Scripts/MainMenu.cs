@@ -23,6 +23,7 @@ public class MainMenu : MonoBehaviour
 
         //Disables the settings background, leaving only the main meny on screen.
         GameObject.Find("Settings Background").SetActive(false);
+        GameObject.Find("Credits Menu").SetActive(false);
     }
 
     //A helper function that hides each panel on the screen.
