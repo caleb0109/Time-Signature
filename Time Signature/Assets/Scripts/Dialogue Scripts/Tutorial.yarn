@@ -1,0 +1,38 @@
+﻿title: TutorialStart
+---
+Well hello there, Knight! Go ahead and hit Space for me, if you would.
+Ah, perfect. Now you know how to advance dialogue. We can have a full conversation now.
+Seems as though you had quite the night, knight. Am I right?
+
+-> Seems like it
+    Yes indeed, my good fellow.
+-> No idea
+    A shame you don't remember. I would guess it was quite the spectacle
+
+Well, regardless of your memory, perhaps we should figure out where we are.
+Go ahead and move with WASD when I finish my sentence.
+
+===
+title: TutorialOne
+---
+Ah, perfect, you still know how to walk.
+Well, onwards then. No use standing around here.
+===
+title: TutorialTwo
+---
+Ah, look at this! A citizen out in the woods!
+I wonder what they're up to? Let's go find out.
+Walk up to the villager and hit E to interact with them.
+===
+title: TutorialVillager
+---
+Villager: Oh, hello knight!
+Villager: Don't mind me, I'm just out doing some foraging.
+Villager: Unfortunately, there's an enemy over to the right that's stopping me from getting back to my village.
+Villager: Could you handle that for me?
+
+-> Absolutely!
+    Villager: Thank you!
+-> Eh
+    Villager: Oh, alright. Well, if you change your mind, it's just over to the right.
+===
