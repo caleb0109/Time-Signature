@@ -117,6 +117,7 @@ public class TutorialBattle : MonoBehaviour
         dialogueRunner.StartDialogue(conversationStartNode);
         isCurrentConversation = true;
         state = TutorialBattleState.PLAYERTURN;
+        PlayerTurn();
     }
 
     void GenerateBeatSelector()
@@ -261,8 +262,9 @@ public class TutorialBattle : MonoBehaviour
         }
         else
         {
-            state = TutorialBattleState.PLAYERTURN;
-            PlayerTurn();
+            state = TutorialBattleState.DIALOGUE;
+            conversationStartNode = "BattleTwo";
+            StartConversation();
         }
     }
 
@@ -270,7 +272,7 @@ public class TutorialBattle : MonoBehaviour
     {
         //we can use this later for winning and losing battles
         Debug.Log("Battle over!");
-        SceneManager.LoadScene("TestLevel");
+        SceneManager.LoadScene("Tutorial");
     }
 
 

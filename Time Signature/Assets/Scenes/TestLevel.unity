@@ -14177,6 +14177,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a6b0dce0286e544e93c93ddfd6d18a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scene: Village
 --- !u!1 &1799121262
 GameObject:
   m_ObjectHideFlags: 0

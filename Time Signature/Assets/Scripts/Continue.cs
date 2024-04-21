@@ -5,7 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class Continue : MonoBehaviour
 {
+    [SerializeField]
+    private string scene;
+
     void OnCollisionEnter2D(Collision2D collision){
-        SceneManager.LoadScene("Village");
+        SceneManager.LoadScene(scene);
     }
 }
