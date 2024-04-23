@@ -17320,6 +17320,10 @@ PrefabInstance:
       propertyPath: menuOpenSound
       value: 
       objectReference: {fileID: 884746479}
+    - target: {fileID: 6715030236260454178, guid: b34cc1b44ee7d5e41986ccc8e4a12e3f, type: 3}
+      propertyPath: soundContainer
+      value: 
+      objectReference: {fileID: 620071178}
     - target: {fileID: 7346995579820094240, guid: b34cc1b44ee7d5e41986ccc8e4a12e3f, type: 3}
       propertyPath: m_Name
       value: Player

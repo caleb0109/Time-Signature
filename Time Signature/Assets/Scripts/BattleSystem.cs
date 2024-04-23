@@ -9,8 +9,6 @@ public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST }
 
 public class BattleSystem : MonoBehaviour
 {
-
-
     public GameObject playerPrefab;
     public GameObject Wolf;
     public GameObject Slime;
@@ -167,6 +165,7 @@ public class BattleSystem : MonoBehaviour
 
         playerAnimator.SetTrigger("Attack");
         yield return new WaitForSeconds(1f);
+        gameObject.GetComponent<PauseMenu>().PlayerAttacking = false;
         feedbackText.GetComponent<TextMeshProUGUI>().text = "";
         dmgToEnemy.text = dmgTaken.ToString();
         dmgToEnemy.gameObject.SetActive(true);
@@ -209,6 +208,7 @@ public class BattleSystem : MonoBehaviour
         AttackButton.GetComponent<Button>().interactable = false;
         MagicButton.GetComponent<Button>().interactable = false;
         rhythmMan.SetBeat(beatManager.GetAttack(beatIndex));
+        gameObject.GetComponent<PauseMenu>().PlayerAttacking = true;
         rhythmMan.BeginBeat(PlayerRhythmFinished);
     }
 

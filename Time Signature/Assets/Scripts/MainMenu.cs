@@ -9,6 +9,7 @@ public class MainMenu : MonoBehaviour
     private GameObject displayPanel;
     private GameObject controlsPanel;
     private GameObject audioPanel;
+    private GameObject audioSources;
 
     private void Start()
     {
@@ -16,7 +17,8 @@ public class MainMenu : MonoBehaviour
         displayPanel = GameObject.Find("Display Panel");
         controlsPanel = GameObject.Find("Controls Panel");
         audioPanel = GameObject.Find("Audio Panel");
-        
+        audioSources = GameObject.Find("Audio Sources");
+
         //Hides the panels before leaving the display panel active. This will ensure it stays open.
         HidePanels();
         displayPanel.SetActive(true);
@@ -70,9 +72,20 @@ public class MainMenu : MonoBehaviour
         }
     }
 
+    //A function that, when called, will unpause the game and music.
     public void UnPause(GameObject objectName)
     {
         Time.timeScale = 1;
+
+        if (audioSources.transform.Find("Music Audio").gameObject.activeInHierarchy)
+        {
+            audioSources.transform.Find("Music Audio").GetComponent<AudioSource>().UnPause();
+        }
+        else
+        {
+            audioSources.transform.GetChild(6).GetComponent<AudioSource>().UnPause();
+            audioSources.transform.GetChild(7).GetComponent<AudioSource>().UnPause();
+        }
         
         Debug.Log(Time.timeScale.ToString());
         objectName.SetActive(false);

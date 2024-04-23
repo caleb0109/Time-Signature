@@ -10417,6 +10417,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pausePanel: {fileID: 386424348}
   menuOpenSound: {fileID: 884746479}
+  soundContainer: {fileID: 620071178}
 --- !u!61 &1345022213
 BoxCollider2D:
   m_ObjectHideFlags: 0

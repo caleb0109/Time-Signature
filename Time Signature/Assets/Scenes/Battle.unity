@@ -14240,6 +14240,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pausePanel: {fileID: 1065160245}
   menuOpenSound: {fileID: 1131510933}
+  soundContainer: {fileID: 1730574718}
 --- !u!114 &1530574185
 MonoBehaviour:
   m_ObjectHideFlags: 0

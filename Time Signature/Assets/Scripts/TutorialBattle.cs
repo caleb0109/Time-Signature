@@ -186,6 +186,7 @@ public class TutorialBattle : MonoBehaviour
 
         playerAnimator.SetTrigger("Attack");
         yield return new WaitForSeconds(1f);
+        gameObject.GetComponent<PauseMenu>().PlayerAttacking = true;
         feedbackText.GetComponent<TextMeshProUGUI>().text = "";
         dmgToEnemy.text = dmgTaken.ToString();
         dmgToEnemy.gameObject.SetActive(true);
@@ -228,6 +229,7 @@ public class TutorialBattle : MonoBehaviour
         AttackButton.GetComponent<Button>().interactable = false;
         MagicButton.GetComponent<Button>().interactable = false;
         rhythmMan.SetBeat(beatManager.GetAttack(beatIndex));
+        gameObject.GetComponent<PauseMenu>().PlayerAttacking = true;
         rhythmMan.BeginBeat(PlayerRhythmFinished);
     }
 
