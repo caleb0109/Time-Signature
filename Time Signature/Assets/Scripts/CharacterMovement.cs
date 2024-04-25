@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -81,6 +82,13 @@ public class CharacterMovement : MonoBehaviour
     void OnDisable()
     {
         targetVelocity = Vector2.zero;
-        playerAnim.SetFloat("Speed", 0);
+
+            try {
+                playerAnim.SetFloat("Speed", 0);
+            }       
+            catch (NullReferenceException ex) {
+                Debug.Log("no");
+            }
+        
     }
 }
