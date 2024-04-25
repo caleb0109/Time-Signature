@@ -78,6 +78,9 @@ public class BattleSystem : MonoBehaviour
         GameObject enemyGO = Instantiate(enemyPrefab, enemySpot);
         enemyUnit = enemyGO.GetComponent<Unit>();
 
+        enemyPrefab.transform.localScale = new Vector3(2, 2, 2);
+
+
         playerAnimator = playerGO.GetComponent<Animator>();
         enemyAnimator = enemyGO.GetComponent<Animator>();
 

@@ -63,9 +63,9 @@ public class CharacterMovement : MonoBehaviour
 
         //flip character movement
         if (velocity.x < 0){
-            this.gameObject.transform.localScale = new Vector3(-0.6f,0.6f,0.6f);
+            this.GetComponent<SpriteRenderer>().flipX = true;
         } else if (velocity.x > 0){
-            this.gameObject.transform.localScale = new Vector3(0.6f,0.6f,0.6f);
+            this.GetComponent<SpriteRenderer>().flipX = false;
         }
 
         Debug.Log(velocity.x);
