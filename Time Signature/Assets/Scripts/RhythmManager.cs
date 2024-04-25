@@ -59,9 +59,11 @@ public class RhythmManager : MonoBehaviour
 
     public GameObject feedbackText;
 
-    public int beatsFinished;
+    private DateTime endTime;
 
     InputManager inputManager;
+
+    public float delayAfterLastBeat;
 
     void Start()
     {
@@ -123,7 +125,7 @@ public class RhythmManager : MonoBehaviour
 
     IEnumerator DisplayBeat(float waitTime)
     {
-
+        float maxTime = 0;
         for(int i = 0; i < currentAttack.beats.Count; i++)
         {
             List<float> beatTimes = currentAttack.beats[i].times;
@@ -136,9 +138,15 @@ public class RhythmManager : MonoBehaviour
                 indicators[indicators.Count - 1].transform.Rotate(new Vector3(0, 0, i * 90));
                 indicators[indicators.Count - 1].GetComponent<SpriteRenderer>().maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
             }
-        }
 
-        while(!isDone)
+            if(totalTime > maxTime)
+            {
+                maxTime = totalTime;
+            }
+        }
+        endTime = DateTime.Now.AddSeconds(maxTime + delayAfterLastBeat);
+
+        while(endTime.CompareTo(DateTime.Now) > 0)
         {
             for(int i = 0; i < indicators.Count; i++)
             {
@@ -155,6 +163,22 @@ public class RhythmManager : MonoBehaviour
             Destroy(indicators[i]);
         }
         indicators.Clear();
+
+        //disable input
+        inputManager.Disable();
+        isDone = true;
+
+        //reset the beat so it can be played again
+        for(int i = 0; i < currentAttack.beats.Count; i++)
+        {
+            currentAttack.beats[i].Reset();
+        }
+        //if a callback was passed in, call it
+        //and pass it the score
+        if(callback != null)
+        {
+            callback(score * currentAttack.attack);
+        }
         yield return null;
     }
 
@@ -197,27 +221,6 @@ public class RhythmManager : MonoBehaviour
         }
 
         score += damageScore;
-        if(currentAttack.beats[index].IsDone())
-        {
-            beatsFinished++;
-        }
-        //if the player has performed enough inputs for each beat
-        if(beatsFinished >= currentAttack.beats.Count)
-        {
-            //disable input
-            inputManager.Disable();
-            isDone = true;
-
-            //reset the beat so it can be played again
-            currentAttack.beats[index].Reset();
-            beatsFinished = 0;
-            //if a callback was passed in, call it
-            //and pass it the score
-            if(callback != null)
-            {
-                callback(score * currentAttack.attack);
-            }
-        }
     }
 
     //A method that changes the indicator's color if the player presses the corresponding note.
