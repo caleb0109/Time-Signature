@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,7 @@ public class YarnInteractable : MonoBehaviour {
     [SerializeField] private GameObject player;
 
     [SerializeField] CharacterMovement movement;
+    [SerializeField] Tutorial tutorial;
 
     // internal properties not exposed to editor
     private DialogueRunner dialogueRunner;
@@ -21,6 +23,8 @@ public class YarnInteractable : MonoBehaviour {
     private bool isCurrentConversation;
     private float defaultIndicatorIntensity;
     private CharacterMovement rb;
+
+    
 
     public void Start() {
         dialogueRunner = FindObjectOfType<Yarn.Unity.DialogueRunner>();
@@ -33,7 +37,7 @@ public class YarnInteractable : MonoBehaviour {
         inputManager.Character.Interact.performed += ctx => Interact(ctx);
     }
 
-        private void OnDisable()
+    private void OnDisable()
     {
         inputManager.Character.Interact.performed -= ctx => Interact(ctx);
         inputManager.Character.Interact.Disable();    
@@ -43,6 +47,14 @@ public class YarnInteractable : MonoBehaviour {
         if (interactable && !dialogueRunner.IsDialogueRunning && this.transform.position.x - player.transform.position.x > -2 && this.transform.position.x - player.transform.position.x < 2 && this.transform.position.y - player.transform.position.y > -1 && this.transform.position.y - player.transform.position.y < 1) {
             StartConversation();
             inputManager.Disable();
+            rb.enabled = false;
+
+            try {
+                tutorial.state = TutorialState.TALKING;
+            }       
+            catch (NullReferenceException ex) {
+                Debug.Log("tutorial inactive");
+            }
         }
     }
 
@@ -61,6 +73,14 @@ public class YarnInteractable : MonoBehaviour {
             rb.enabled = true;
             Debug.Log($"Ended conversation with {name}.");
             EnableConversation();
+
+            
+            try {
+                tutorial.state = TutorialState.FREE;
+            }       
+            catch (NullReferenceException ex) {
+                Debug.Log("tutorial inactive");
+            }
         }
         
     }
