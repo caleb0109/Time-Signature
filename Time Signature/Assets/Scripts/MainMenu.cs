@@ -76,6 +76,7 @@ public class MainMenu : MonoBehaviour
     public void UnPause(GameObject objectName)
     {
         Time.timeScale = 1;
+        GameObject.Find("Player").GetComponent<PauseMenu>().GamePaused = false;
 
         if (audioSources.transform.Find("Music Audio").gameObject.activeInHierarchy)
         {
@@ -87,7 +88,7 @@ public class MainMenu : MonoBehaviour
             audioSources.transform.GetChild(7).GetComponent<AudioSource>().UnPause();
         }
         
-        Debug.Log(Time.timeScale.ToString());
+        //Debug.Log(Time.timeScale.ToString());
         objectName.SetActive(false);
     }
 }

@@ -47,29 +47,35 @@ public class CharacterMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Update the character's velocity to approach the target
-        velocity = Vector2.Lerp(velocity, targetVelocity, 1);
-        // Camera velocity is updated by a fraction of the character's acceleration speed so it lags behind
-        cameraVelocity = Vector2.Lerp(cam.transform.position, transform.position, Time.deltaTime * cameraAcceleration);
-        // Camera doesn't move up or down
-        cameraVelocity.y = 0;
+        if (!gameObject.GetComponent<PauseMenu>().GamePaused)
+        {
+            // Update the character's velocity to approach the target
+            velocity = Vector2.Lerp(velocity, targetVelocity, 1);
+            // Camera velocity is updated by a fraction of the character's acceleration speed so it lags behind
+            cameraVelocity = Vector2.Lerp(cam.transform.position, transform.position, Time.deltaTime * cameraAcceleration);
+            // Camera doesn't move up or down
+            cameraVelocity.y = 0;
 
-        // Move the character and camera
-        transform.Translate(targetVelocity * Time.deltaTime);
-        cam.transform.position = new Vector3(cameraVelocity.x, cam.transform.position.y, cam.transform.position.z);
+            // Move the character and camera
+            transform.Translate(targetVelocity * Time.deltaTime);
+            cam.transform.position = new Vector3(cameraVelocity.x, cam.transform.position.y, cam.transform.position.z);
 
+        
+            playerAnim.SetFloat("Speed", velocity.x);
+        
 
-        playerAnim.SetFloat("Speed", velocity.x);
+            //flip character movement
+            if (velocity.x < 0)
+            {
+                this.GetComponent<SpriteRenderer>().flipX = true;
+            } 
+            else if (velocity.x > 0)
+            {
+                this.GetComponent<SpriteRenderer>().flipX = false;
+            }
 
-        //flip character movement
-        if (velocity.x < 0){
-            this.GetComponent<SpriteRenderer>().flipX = true;
-        } else if (velocity.x > 0){
-            this.GetComponent<SpriteRenderer>().flipX = false;
+            //Debug.Log(velocity.x);
         }
-
-        Debug.Log(velocity.x);
-
     }
 
     void Move(InputAction.CallbackContext inputCtx)
@@ -78,6 +84,7 @@ public class CharacterMovement : MonoBehaviour
         Vector2 input = inputCtx.ReadValue<Vector2>();
         targetVelocity = new Vector2(input.x, input.y * verticalWalkSpeed) * walkSpeed;
     }
+
 
     void OnDisable()
     {

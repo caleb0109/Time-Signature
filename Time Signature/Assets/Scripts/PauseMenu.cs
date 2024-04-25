@@ -10,7 +10,8 @@ public class PauseMenu : MonoBehaviour
     public AudioSource menuOpenSound;
     public GameObject soundContainer;
 
-    private bool playerAttacking;
+    private bool disablePause;
+    private bool gamePaused;
 
     private AudioSource music;
     private AudioSource secondMusic;
@@ -32,15 +33,13 @@ public class PauseMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log(playerAttacking + " THING");
-
         if (!music.isActiveAndEnabled)
         {
             music = soundContainer.transform.GetChild(6).GetComponent<AudioSource>();
             secondMusic = soundContainer.transform.GetChild(7).GetComponent<AudioSource>();
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape) && !playerAttacking)
+        if (Input.GetKeyDown(KeyCode.Escape) && !disablePause)
         {
             if (pausePanel.activeSelf == false)
             {
@@ -54,11 +53,13 @@ public class PauseMenu : MonoBehaviour
 
                 pausePanel.SetActive(true);
 
+                gamePaused = true;
                 Time.timeScale = 0;
             }
             else if (pausePanel.activeSelf == true)
             {
                 Time.timeScale = 1;
+                gamePaused = false;
                 music.UnPause();
 
                 if (secondMusic != null)
@@ -73,15 +74,28 @@ public class PauseMenu : MonoBehaviour
     }
 
     //Detects if the player is attacking and disables the pause function if so. 
-    public bool PlayerAttacking
+    public bool DisablePause
     {
         get
         {
-            return playerAttacking;
+            return disablePause;
         }
         set
         {
-            playerAttacking = value;
+            disablePause = value;
+        }
+    }
+
+    //Get-Set function corresponding to the game's paused status.
+    public bool GamePaused
+    {
+        get
+        {
+            return gamePaused;
+        }
+        set
+        {
+            gamePaused = value;
         }
     }
 }
