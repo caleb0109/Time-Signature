@@ -30,6 +30,7 @@ public class Tutorial : MonoBehaviour
         rb = player.GetComponent<CharacterMovement>();
         inputManager = new InputManager();
         inputManager.Enable();
+        dialogueRunner.Stop();
         StartConversation();
 
     }
