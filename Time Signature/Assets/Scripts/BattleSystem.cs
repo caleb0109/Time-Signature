@@ -65,15 +65,15 @@ public class BattleSystem : MonoBehaviour
         Debug.Log(EnemyEncounter.enemyName);
         if (EnemyEncounter.enemyName == "Wolf (UnityEngine.GameObject)")
         {
-            Wolf.transform.localScale = new Vector3(5, 5, 5);
-
             enemyPrefab = Wolf;
 
-        } else
+            enemyPrefab.transform.localScale = new Vector3(5, 5, 5);
+        }
+        else
         {
-            Slime.transform.localScale = new Vector3(2, 2, 2);
-
             enemyPrefab = Slime;
+
+            enemyPrefab.transform.localScale = new Vector3(2, 2, 2);
         }
         GameObject enemyGO = Instantiate(enemyPrefab, enemySpot);
         enemyUnit = enemyGO.GetComponent<Unit>();
