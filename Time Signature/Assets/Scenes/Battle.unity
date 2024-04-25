@@ -13907,7 +13907,7 @@ MonoBehaviour:
   backgroundAudioSource: {fileID: 1825282667}
   isDone: 0
   feedbackText: {fileID: 794302671}
-  beatsFinished: 0
+  delayAfterLastBeat: 0.5
 --- !u!82 &1530574183
 AudioSource:
   m_ObjectHideFlags: 0
