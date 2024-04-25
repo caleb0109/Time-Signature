@@ -27,8 +27,6 @@ public class BattleSystem : MonoBehaviour
 
     public BattleState state;
 
-    [SerializeField] TMP_Text playerName;
-    [SerializeField] TMP_Text enemyName;
     [SerializeField] TMP_Text dmgToEnemy;
     [SerializeField] TMP_Text dmgToPlayer;
     [SerializeField] TMP_Text currentMaxHp;
@@ -67,16 +65,18 @@ public class BattleSystem : MonoBehaviour
         Debug.Log(EnemyEncounter.enemyName);
         if (EnemyEncounter.enemyName == "Wolf (UnityEngine.GameObject)")
         {
+            Wolf.transform.localScale = new Vector3(5, 5, 5);
+
             enemyPrefab = Wolf;
+
         } else
         {
+            Slime.transform.localScale = new Vector3(2, 2, 2);
+
             enemyPrefab = Slime;
         }
         GameObject enemyGO = Instantiate(enemyPrefab, enemySpot);
         enemyUnit = enemyGO.GetComponent<Unit>();
-
-        playerName.SetText(playerUnit.unitName);
-        enemyName.SetText(enemyUnit.unitName);
 
         playerAnimator = playerGO.GetComponent<Animator>();
         enemyAnimator = enemyGO.GetComponent<Animator>();

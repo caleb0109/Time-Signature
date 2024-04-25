@@ -169,31 +169,34 @@ public class RhythmManager : MonoBehaviour
         audioController.clip = beatSounds[(int)UnityEngine.Random.Range(0, beatSounds.Length)];
         audioController.Play();
         //increase the score based on the time since the last input
-        float temp = currentAttack.beats[index].GetScore(timeElapsed);
-        
+        float damageScore = currentAttack.beats[index].GetScore(timeElapsed);
+
         //Perfect
-        if (temp >= 0.9)
+        if (damageScore >= 0.9)
         {
             feedbackText.GetComponent<TextMeshProUGUI>().text = "Perfect";
+            StartCoroutine(ChangeIndicator(index, new Color(0, 1, 0)));
         }
         //Good
-        else if (temp >= 0.5)
+        else if (damageScore >= 0.5)
         {
             feedbackText.GetComponent<TextMeshProUGUI>().text = "Good";
+            StartCoroutine(ChangeIndicator(index, new Color(0.35f, 0.76f, 1)));
         }
         //Bad
-        else if (temp > 0)
+        else if (damageScore > 0)
         {
             feedbackText.GetComponent<TextMeshProUGUI>().text = "Bad";
+            StartCoroutine(ChangeIndicator(index, new Color(1, 1, 0)));
         }
         //Miss
         else
         {
             feedbackText.GetComponent<TextMeshProUGUI>().text = "Miss";
+            StartCoroutine(ChangeIndicator(index, new Color(1, 0, 0)));
         }
 
-        Debug.Log(temp);
-        score += temp;
+        score += damageScore;
         if(currentAttack.beats[index].IsDone())
         {
             beatsFinished++;
@@ -214,7 +217,46 @@ public class RhythmManager : MonoBehaviour
             {
                 callback(score * currentAttack.attack);
             }
+        }
+    }
 
+    //A method that changes the indicator's color if the player presses the corresponding note.
+    IEnumerator ChangeIndicator(int index, Color color)
+    {
+        GameObject arrow = GameObject.Find("Attack Display");
+
+        switch (index)
+        {
+            //Up Arrow
+            case 0:
+                arrow = arrow.transform.GetChild(0).Find("Up Arrow").gameObject;
+                break;
+            //Left Arrow
+            case 1:
+                arrow = arrow.transform.GetChild(1).Find("Left Arrow").gameObject;
+                break;
+            //Down Arrow
+            case 2:
+                arrow = arrow.transform.GetChild(1).Find("Down Arrow").gameObject;
+                break;
+            //Right Arrow
+            case 3:
+                arrow = arrow.transform.GetChild(1).Find("Right Arrow").gameObject;
+                break;
+            //Default
+            default:
+                Debug.Log("How did you get this?");
+                break;
+        }
+
+        arrow.GetComponent<SpriteRenderer>().color = color;
+
+        yield return new WaitForSecondsRealtime(0.1f);
+
+        //Checks to see if this is the most recent color change.
+        if (arrow.GetComponent<SpriteRenderer>().color == color)
+        {
+            arrow.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1);
         }
     }
 }
