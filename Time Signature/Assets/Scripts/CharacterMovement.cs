@@ -27,7 +27,7 @@ public class CharacterMovement : MonoBehaviour
     private GameObject cam;
 
     private Animator playerAnim;
-    
+
 
     // Start is called before the first frame update
     void Start()
@@ -68,7 +68,7 @@ public class CharacterMovement : MonoBehaviour
         }
 
         Debug.Log(velocity.x);
-        
+
     }
 
     void Move(InputAction.CallbackContext inputCtx)
@@ -76,5 +76,11 @@ public class CharacterMovement : MonoBehaviour
         //update the speed the player wants to move at
         Vector2 input = inputCtx.ReadValue<Vector2>();
         targetVelocity = new Vector2(input.x, input.y * verticalWalkSpeed) * walkSpeed;
+    }
+
+    void OnDisable()
+    {
+        targetVelocity = Vector2.zero;
+        playerAnim.SetFloat("Speed", 0);
     }
 }
