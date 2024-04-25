@@ -46,6 +46,7 @@ public class YarnPromptable : MonoBehaviour {
             isCurrentConversation = false;
             Debug.Log($"Ended conversation with {name}.");
             EnableConversation();
+            this.gameObject.SetActive(false);
         }
         
     }

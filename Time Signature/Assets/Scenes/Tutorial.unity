@@ -10240,7 +10240,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1445627460
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10271,7 +10271,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 48c234929e0c9b2468f05d62f3a75b97, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -15904,6 +15904,10 @@ PrefabInstance:
     - target: {fileID: 982232327849563693, guid: b34cc1b44ee7d5e41986ccc8e4a12e3f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2206463265557391474, guid: b34cc1b44ee7d5e41986ccc8e4a12e3f, type: 3}
+      propertyPath: m_Constraints
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5073680209457324570, guid: b34cc1b44ee7d5e41986ccc8e4a12e3f, type: 3}
       propertyPath: cam
