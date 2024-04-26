@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 86444a9ebabd67342a6d594837c80e29
+guid: 4b4ae528fd6cc2142a76c96695d6144a
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,295 +110,421 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: villager2-Sheet_0
+      name: MC_v7_idlewalkandrun (1)_0
       rect:
         serializedVersion: 2
-        x: 3
-        y: 2
-        width: 24
+        x: 7
+        y: 0
+        width: 32
         height: 60
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4841becc30820594e82cf144fc372ef4
-      internalID: 1178983374
+      spriteID: a773109ef99682b4faa0579d1c0d87e5
+      internalID: -112039057
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: villager2-Sheet_1
+      name: MC_v7_idlewalkandrun (1)_1
       rect:
         serializedVersion: 2
-        x: 35
-        y: 2
-        width: 24
+        x: 46
+        y: 0
+        width: 33
         height: 60
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a65861a8795476e44a75d27c9f79e07d
-      internalID: -1928116184
+      spriteID: 1a4cd2ee6817f5640be69b5c7ee2faeb
+      internalID: -1824039180
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: villager2-Sheet_2
+      name: MC_v7_idlewalkandrun (1)_2
       rect:
         serializedVersion: 2
-        x: 67
-        y: 2
-        width: 24
-        height: 60
+        x: 85
+        y: 0
+        width: 35
+        height: 59
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0eca1428920977449873d2c36b7e9579
-      internalID: 1137804602
+      spriteID: 29ea4c38a56c3ea4a8078976e1505a0d
+      internalID: 261506732
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: villager2-Sheet_3
+      name: MC_v7_idlewalkandrun (1)_3
       rect:
         serializedVersion: 2
-        x: 99
-        y: 2
-        width: 24
-        height: 60
+        x: 127
+        y: 0
+        width: 33
+        height: 59
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b3a38c2bcdcc1ca44bc47c45eeeeb1fc
-      internalID: -1846714951
+      spriteID: 932f4eaa597e41047a84a627c1f3cccb
+      internalID: -1153647561
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: villager2-Sheet_4
+      name: MC_v7_idlewalkandrun (1)_4
       rect:
         serializedVersion: 2
-        x: 131
+        x: 169
         y: 2
-        width: 24
-        height: 60
+        width: 28
+        height: 58
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 72d5f798796247647b38c2d82827abec
-      internalID: 1175068109
+      spriteID: 7c0ba19974fbd47439b2c071094b1c50
+      internalID: -1254617181
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: villager2-Sheet_5
+      name: MC_v7_idlewalkandrun (1)_5
       rect:
         serializedVersion: 2
-        x: 163
-        y: 2
-        width: 24
-        height: 60
+        x: 207
+        y: 0
+        width: 32
+        height: 58
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7e68805c7808257439ab1d1fd9396bb1
-      internalID: -1915741554
+      spriteID: d975929524059e545871b9232170919e
+      internalID: -1791600992
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: villager2-Sheet_6
+      name: MC_v7_idlewalkandrun (1)_6
       rect:
         serializedVersion: 2
-        x: 195
-        y: 2
-        width: 24
+        x: 249
+        y: 0
+        width: 27
         height: 60
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6e58e79fc9f34b442b0ee61b477f0744
-      internalID: 1199914668
+      spriteID: ec8198a9d610f7c44b406b804d040d35
+      internalID: 929016891
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: villager2-Sheet_7
-      rect:
-        serializedVersion: 2
-        x: 227
-        y: 2
-        width: 24
-        height: 60
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7bdd41ac2d560144bbf69cd9508d8a1c
-      internalID: 711837539
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: villager2-Sheet_8
-      rect:
-        serializedVersion: 2
-        x: 259
-        y: 2
-        width: 24
-        height: 60
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 307776dcb6825df47909986bfec7a628
-      internalID: 1982417184
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: villager2-Sheet_9
+      name: MC_v7_idlewalkandrun (1)_7
       rect:
         serializedVersion: 2
         x: 291
-        y: 2
-        width: 24
-        height: 60
+        y: 0
+        width: 23
+        height: 61
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a9bd2ecbbfe5a8845acdc8135946d77c
-      internalID: -1859155739
+      spriteID: d1549a5c5e4afdd4bad8182e78cb6ee2
+      internalID: -1957543652
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: villager2-Sheet_10
+      name: MC_v7_idlewalkandrun (1)_8
       rect:
         serializedVersion: 2
-        x: 323
+        x: 330
         y: 2
-        width: 24
-        height: 60
+        width: 26
+        height: 58
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 165ec14c31f954d4b8d82c7a37361ccf
-      internalID: 516333306
+      spriteID: e8560340098727d46ad837fb6e082791
+      internalID: -1995359794
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: villager2-Sheet_11
+      name: MC_v7_idlewalkandrun (1)_9
       rect:
         serializedVersion: 2
-        x: 355
+        x: 369
         y: 2
-        width: 24
-        height: 60
+        width: 27
+        height: 56
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2e0a5f0e604893d418c93ac9b1d4492f
-      internalID: -113369358
+      spriteID: e81aee63ce675e549a102e69aa54393f
+      internalID: -61386667
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: villager2-Sheet_12
+      name: MC_v7_idlewalkandrun (1)_10
       rect:
         serializedVersion: 2
-        x: 387
+        x: 410
         y: 2
-        width: 24
-        height: 60
+        width: 23
+        height: 58
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: add48ae5fdc234f49910ba0eb31b26d1
-      internalID: -1792396405
+      spriteID: cc1dff65fc1edec45835ddc3a26f4359
+      internalID: 1360989920
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: villager2-Sheet_13
+      name: MC_v7_idlewalkandrun (1)_11
       rect:
         serializedVersion: 2
-        x: 419
-        y: 2
-        width: 24
-        height: 60
+        x: 449
+        y: 3
+        width: 25
+        height: 58
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 13c17d7355be3f84080b9d6a234630ad
-      internalID: 576088154
+      spriteID: 9e96931dd8a305a4dbdafb34b0e9b0fe
+      internalID: -1981034486
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MC_v7_idlewalkandrun (1)_12
+      rect:
+        serializedVersion: 2
+        x: 489
+        y: 1
+        width: 28
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2f1afbe9c03f8b4a993952f21c29785
+      internalID: -1667775235
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MC_v7_idlewalkandrun (1)_13
+      rect:
+        serializedVersion: 2
+        x: 520
+        y: 6
+        width: 40
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1933f2e91835989488de456a6f935ec0
+      internalID: -389463262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MC_v7_idlewalkandrun (1)_14
+      rect:
+        serializedVersion: 2
+        x: 568
+        y: 3
+        width: 29
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0444029d0b9f5704582a878d227a31a2
+      internalID: -812791917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MC_v7_idlewalkandrun (1)_15
+      rect:
+        serializedVersion: 2
+        x: 607
+        y: 2
+        width: 27
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 081138186188a1a4fb162397ba44e1d1
+      internalID: 247035270
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MC_v7_idlewalkandrun (1)_16
+      rect:
+        serializedVersion: 2
+        x: 650
+        y: 3
+        width: 26
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 14eefa8e612cf3f4492aaf8e05948a14
+      internalID: 691097439
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MC_v7_idlewalkandrun (1)_17
+      rect:
+        serializedVersion: 2
+        x: 688
+        y: 4
+        width: 31
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97152e70b5dbc384c9652da76c06148f
+      internalID: 600369652
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MC_v7_idlewalkandrun (1)_18
+      rect:
+        serializedVersion: 2
+        x: 729
+        y: 3
+        width: 30
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 57a35bdd5b0010f4b824183db5626663
+      internalID: -1424282968
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MC_v7_idlewalkandrun (1)_19
+      rect:
+        serializedVersion: 2
+        x: 770
+        y: 0
+        width: 25
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 346b604067ffbff44b1307d01d189314
+      internalID: -200931324
       vertices: []
       indices: 
       edges: []
@@ -414,20 +540,26 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      villager2-Sheet_0: 1178983374
-      villager2-Sheet_1: -1928116184
-      villager2-Sheet_10: 516333306
-      villager2-Sheet_11: -113369358
-      villager2-Sheet_12: -1792396405
-      villager2-Sheet_13: 576088154
-      villager2-Sheet_2: 1137804602
-      villager2-Sheet_3: -1846714951
-      villager2-Sheet_4: 1175068109
-      villager2-Sheet_5: -1915741554
-      villager2-Sheet_6: 1199914668
-      villager2-Sheet_7: 711837539
-      villager2-Sheet_8: 1982417184
-      villager2-Sheet_9: -1859155739
+      MC_v7_idlewalkandrun (1)_0: -112039057
+      MC_v7_idlewalkandrun (1)_1: -1824039180
+      MC_v7_idlewalkandrun (1)_10: 1360989920
+      MC_v7_idlewalkandrun (1)_11: -1981034486
+      MC_v7_idlewalkandrun (1)_12: -1667775235
+      MC_v7_idlewalkandrun (1)_13: -389463262
+      MC_v7_idlewalkandrun (1)_14: -812791917
+      MC_v7_idlewalkandrun (1)_15: 247035270
+      MC_v7_idlewalkandrun (1)_16: 691097439
+      MC_v7_idlewalkandrun (1)_17: 600369652
+      MC_v7_idlewalkandrun (1)_18: -1424282968
+      MC_v7_idlewalkandrun (1)_19: -200931324
+      MC_v7_idlewalkandrun (1)_2: 261506732
+      MC_v7_idlewalkandrun (1)_3: -1153647561
+      MC_v7_idlewalkandrun (1)_4: -1254617181
+      MC_v7_idlewalkandrun (1)_5: -1791600992
+      MC_v7_idlewalkandrun (1)_6: 929016891
+      MC_v7_idlewalkandrun (1)_7: -1957543652
+      MC_v7_idlewalkandrun (1)_8: -1995359794
+      MC_v7_idlewalkandrun (1)_9: -61386667
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

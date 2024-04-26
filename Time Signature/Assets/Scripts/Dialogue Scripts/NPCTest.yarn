@@ -47,6 +47,17 @@ Villager: Welcome to our humble little village.
 Villager: Is there a reason you're here? There's already a knight here.
 Villager: He's right over there.
 ===
+title: VillagerThree
+---
+Villager: This village is known for it's hospitality.
+Villager: We're glad to have you knights here, protecting our town!
+===
+title: BoyOne
+---
+Boy: Whoa! Another knight!
+Boy: What a crazy day! I never seen so many knights in once place!
+Boy: Why are you all here though? Is somethin wrong?
+===
 title: CaptainOne
 ---
 Captain: Ha! Just the knight I wanted to see.
