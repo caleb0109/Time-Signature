@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed58e0d06a98f4a4d9dfd58efab83f85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitName: Enemy
+  unitName: Slime
   unitLevel: 1
   damage: 5
   maxHP: 30

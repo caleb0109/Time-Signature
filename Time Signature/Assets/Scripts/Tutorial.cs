@@ -31,7 +31,12 @@ public class Tutorial : MonoBehaviour
         inputManager = new InputManager();
         inputManager.Enable();
         dialogueRunner.Stop();
-        StartConversation();
+
+        if (!PlayerPrefs.HasKey("dialogueHeard"))
+        {
+            StartConversation();
+        }
+        
 
     }
 
@@ -52,6 +57,7 @@ public class Tutorial : MonoBehaviour
     }
 
     private void StartConversation() {
+        PlayerPrefs.SetInt("dialogueHeard", 1);
         Debug.Log($"Started conversation with {name}.");
         rb.enabled = false;
         inputManager.Disable();

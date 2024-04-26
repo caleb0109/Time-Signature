@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class CharacterMovement : MonoBehaviour
 {
@@ -28,7 +29,6 @@ public class CharacterMovement : MonoBehaviour
     private GameObject cam;
 
     private Animator playerAnim;
-
 
     // Start is called before the first frame update
     void Start()
@@ -98,4 +98,5 @@ public class CharacterMovement : MonoBehaviour
             }
         
     }
+
 }
