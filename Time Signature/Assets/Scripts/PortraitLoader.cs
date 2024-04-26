@@ -8,10 +8,13 @@ public class PortraitLoader : MonoBehaviour
 {
     public GameObject portrait;
     private string text;
-    public Sprite villager;
-    public Sprite guard;
+    public Sprite villagerMan;
+    public Sprite villagerWoman;
+    public Sprite guardOne;
+    public Sprite guardTwo;
     public Sprite captain;
-    public Sprite wolf; 
+    public Sprite wolf;
+    public Sprite boy;
 
     // Start is called before the first frame update
     void Start()
@@ -28,21 +31,58 @@ public class PortraitLoader : MonoBehaviour
             text = gameObject.GetComponent<TextMeshProUGUI>().text;
             Debug.Log(text);
 
-            if (text == "Villager")
+            portrait.GetComponent<Image>().color = new Color(1, 1, 1, 1);
+
+            switch (text)
             {
-                portrait.GetComponent<Image>().sprite = villager;
-            }
-            else if (text == "Captain")
-            {
-                portrait.GetComponent<Image>().sprite = captain;
-            }
-            else if (text == "Guard")
-            {
-                portrait.GetComponent<Image>().sprite = guard;
-            }
-            else if (text == "Wolf")
-            {
-                portrait.GetComponent<Image>().sprite = wolf;
+                case "Villager":
+                    {
+                        portrait.GetComponent<Image>().sprite = villagerMan;
+
+                        break;
+                    }
+                case "Boy":
+                    {
+                        portrait.GetComponent<Image>().sprite = boy;
+
+                        break;
+                    }
+                case "Lady":
+                    {
+                        portrait.GetComponent<Image>().sprite = villagerWoman;
+
+                        break;
+                    }
+                case "Guard 1":
+                    {
+                        portrait.GetComponent<Image>().sprite = guardOne;
+
+                        break;
+                    }
+                case "Guard 2":
+                    {
+                        portrait.GetComponent<Image>().sprite = guardTwo;
+
+                        break;
+                    }
+                case "Captain":
+                    {
+                        portrait.GetComponent<Image>().sprite = captain;
+
+                        break;
+                    }
+                case "Wolf":
+                    {
+                        portrait.GetComponent<Image>().sprite = wolf;
+
+                        break;
+                    }
+                default:
+                    {
+                        portrait.GetComponent<Image>().color = new Color(1, 1, 1, 0);
+
+                        break;
+                    }
             }
         }
     }

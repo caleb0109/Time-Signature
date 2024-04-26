@@ -1384,10 +1384,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   portrait: {fileID: 1301951220}
-  villager: {fileID: 21300000, guid: e83c6b9a29f8f7341b863f4fd80bceb3, type: 3}
-  guard: {fileID: 21300000, guid: 5ac90abb3f83db6499bf30eaf96e0c4f, type: 3}
-  captain: {fileID: 21300000, guid: eb857926209cc1f498123fcf90b7288f, type: 3}
+  villagerMan: {fileID: 21300000, guid: e83c6b9a29f8f7341b863f4fd80bceb3, type: 3}
+  villagerWoman: {fileID: 21300000, guid: ecd91010496190642ba9ce6a54b82ab5, type: 3}
+  guardOne: {fileID: 21300000, guid: 8681b52aadf2cdf4daf04a3308dfb62b, type: 3}
+  guardTwo: {fileID: 21300000, guid: 8460055be269a7e45bae0cd8d7b44674, type: 3}
+  captain: {fileID: 21300000, guid: 06cfa64b03b34734e98d00e3138598a9, type: 3}
   wolf: {fileID: 21300000, guid: 22c41e7f464c54c4eaf4ff082e165695, type: 3}
+  boy: {fileID: 21300000, guid: ba6c7bb456b425641a662743ba9c4903, type: 3}
 --- !u!1 &94044692
 GameObject:
   m_ObjectHideFlags: 0

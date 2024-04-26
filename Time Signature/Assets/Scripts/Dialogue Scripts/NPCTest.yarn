@@ -1,23 +1,23 @@
 ﻿title: Start
 ---
-Guard: Wow!
-Guard: It's the music guy!
-Guard: Say, how does it feel being the only knight who dances?
+Guard 2: Wow!
+Guard 2: It's the music guy!
+Guard 2: Say, how does it feel being the only knight who dances?
 
 -> It's lonely.
 -> It's cool!
 -> I don't really care.
 
-Guard: Okay!
-Guard: Well, bye!
+Guard 2: Okay!
+Guard 2: Well, bye!
 ===
 title: GuardTwo
 ---
-Guard: Oh man, this new assignment is way better than the last one.
-Guard: These woods are much more pleasant than that field we were in last time.
-Guard: The trees are also much prettier here.
-Guard: I hope I can just have all of my assignments be in places like this.
-Guard: Hopefully the King doesn't call me back too soon.
+Guard 1: Oh man, this new assignment is way better than the last one.
+Guard 1: These woods are much more pleasant than that field we were in last time.
+Guard 1: The trees are also much prettier here.
+Guard 1: I hope I can just have all of my assignments be in places like this.
+Guard 1: Hopefully the King doesn't call me back too soon.
 ===
 title: Wolf
 ---
@@ -49,8 +49,8 @@ Villager: He's right over there.
 ===
 title: VillagerThree
 ---
-Villager: This village is known for it's hospitality.
-Villager: We're glad to have you knights here, protecting our town!
+Lady: This village is known for it's hospitality.
+Lady: We're glad to have you knights here, protecting our town!
 ===
 title: BoyOne
 ---

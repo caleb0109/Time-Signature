@@ -3,7 +3,15 @@ guid: 4c5ee58de7cc3bb438be5ea8f8a028d2
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - portrait: {instanceID: 0}
+  - villagerMan: {fileID: 21300000, guid: e83c6b9a29f8f7341b863f4fd80bceb3, type: 3}
+  - villagerWoman: {fileID: 21300000, guid: ecd91010496190642ba9ce6a54b82ab5, type: 3}
+  - guardOne: {fileID: 21300000, guid: 8681b52aadf2cdf4daf04a3308dfb62b, type: 3}
+  - guardTwo: {fileID: 21300000, guid: 8460055be269a7e45bae0cd8d7b44674, type: 3}
+  - captain: {fileID: 21300000, guid: 06cfa64b03b34734e98d00e3138598a9, type: 3}
+  - wolf: {fileID: 21300000, guid: 22c41e7f464c54c4eaf4ff082e165695, type: 3}
+  - boy: {fileID: 21300000, guid: ba6c7bb456b425641a662743ba9c4903, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
