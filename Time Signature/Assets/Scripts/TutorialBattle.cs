@@ -116,6 +116,8 @@ public class TutorialBattle : MonoBehaviour
         isCurrentConversation = true;
         state = TutorialBattleState.PLAYERTURN;
         PlayerTurn();
+        AttackButton.GetComponent<Button>().interactable = false;
+        MagicButton.GetComponent<Button>().interactable = false;
     }
 
     void GenerateBeatSelector()
@@ -354,6 +356,8 @@ public class TutorialBattle : MonoBehaviour
         if (isCurrentConversation) {
             isCurrentConversation = false;
             Debug.Log($"Ended conversation with {name}.");
+            AttackButton.GetComponent<Button>().interactable = true;
+            MagicButton.GetComponent<Button>().interactable = true;
             EnableConversation();
         }
         
