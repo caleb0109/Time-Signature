@@ -13,6 +13,8 @@ public class MainMenu : MonoBehaviour
 
     private void Start()
     {
+
+        PlayerPrefs.DeleteAll();
         //Finds the three settings panels and initializes their correponding variables.
         displayPanel = GameObject.Find("Display Panel");
         controlsPanel = GameObject.Find("Controls Panel");
