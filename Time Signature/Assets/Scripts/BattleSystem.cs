@@ -164,7 +164,15 @@ public class BattleSystem : MonoBehaviour
     private IEnumerator AnimatePlayerAttack(float score)
     {
         //formula for getting the damage done based on the rhythm
-        float dmgTaken = Mathf.Round((playerUnit.damage * score)/5);
+        float dmgTaken = 0;
+        if (magicBeatSelector)
+        {
+            dmgTaken = Mathf.Round((playerUnit.damage * score));
+        }
+        else
+        {
+            dmgTaken = Mathf.Round((playerUnit.damage * score)/5);
+        }
 
         playerAnimator.SetTrigger("Attack");
         yield return new WaitForSeconds(1f);

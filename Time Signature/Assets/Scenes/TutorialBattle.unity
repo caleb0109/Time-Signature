@@ -14735,13 +14735,13 @@ MonoBehaviour:
     beatStrings:
     - xoxoooxoooxooxoo
     beatStrength: 2
-  - attackName: ????
+  - attackName: Fireball
     beatStrings:
-    - xooxooxoooxoooxo
-    - xxoxxoxxoxxoxoxx
-    - ooooxooxooxoxoxx
+    - xoooooxoooxoooxo
+    - xooooooxoxooooxx
+    - ooooxoooooxoooox
     - ooooxoooooooxooo
-    beatStrength: 2
+    beatStrength: 0.25
   attacks: []
 --- !u!114 &1530574186
 MonoBehaviour:
